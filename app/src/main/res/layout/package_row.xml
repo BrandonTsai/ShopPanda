@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:tag="back"
+        android:background="#eee"
+        >
+
+        <Button
+            android:id="@+id/example_row_b_action_1"
+            android:layout_width="wrap_content"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/example_row_b_action_2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Delete"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/example_row_b_action_3"
+            android:layout_width="wrap_content"
+            android:text="Edit"
+            android:layout_gravity="center"
+            android:layout_height="60dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/front"
+        android:orientation="vertical"
+        android:tag="front"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
+
+        <TextView
+            android:id="@+id/example_row_tv_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

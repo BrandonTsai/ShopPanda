@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.brandon.jpbestbuy.ComputeBestBuy2">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tv_best_cost"
+        android:background="@android:color/white"
+        android:padding="15dp"
+        android:text="test"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"/>
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/expListView_BestBuyList"
+        android:layout_gravity="center_horizontal"
+
+        />
+</LinearLayout>
