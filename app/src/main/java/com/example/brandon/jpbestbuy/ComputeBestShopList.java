@@ -40,7 +40,8 @@ public class ComputeBestShopList {
 
         HashMap<Integer, Store> notThresholdStores = getNotThresholdStores(minCostStores);
 
-        while (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
+//        while (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
+        if (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
             Log.d(TAG,"Compute best shop for notThresholdStores");
             //HashMap<Integer, Product> notThresholdProducts = getNotThresholdProducts(minCostStores, products);
             int minCostNTStoreID = -1;
@@ -57,9 +58,7 @@ public class ComputeBestShopList {
 
     private HashMap<Integer, Store> letStoreReachthreshold(int sid, HashMap<Integer, Store> stores) {
         Store store = stores.get(sid);
-        for (int pid:store.getNoBuyProductsID()){
-            //ToDo: reach threshold with minCost.
-        }
+        store.getMinProductSetToReachThreshold();
         return null;
     }
 

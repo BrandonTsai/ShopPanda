@@ -158,5 +158,75 @@ public class Store {
         return (int) Math.ceil(price * (1.00 - discount*0.01));
     }
 
+    public ArrayList<Integer> getMinProductSetToReachThreshold(){
+        if (!canReachThreshold()){
+            return null;
+        }
+
+        ArrayList<Integer> minProductIDs = new ArrayList<>();
+
+        ArrayList<HashMap<String,Object>> notbuyProducts = new ArrayList<>();
+        for (HashMap<String,Object> pInfo:products.values()){
+            if (!(Boolean) pInfo.get("BUY")) {
+                notbuyProducts.add(pInfo);
+            }
+        }
+        Log.d(TAG, "Store " + sid + " does not buy product:" + notbuyProducts.toString());
+
+        int diff = threshould - getBuyCost();
+        Log.d(TAG, "Store " + sid + " need " + diff + "JPD to reach " + threshould + "JPD" );
+
+        ArrayList<ArrayList<HashMap<String,Object>>> subarrays = new ArrayList<>();
+        for (HashMap<String,Object> e :notbuyProducts){
+            subarrays = mergeElement(subarrays, e);
+        }
+        Log.d(TAG, "SubArrays:" + subarrays.toString());
+
+        ArrayList<HashMap<String,Object>> minSubArray = getMinSubArray(subarrays, diff);
+        Log.d(TAG, "Min SubArrays:" + minSubArray.toString() +";cost="+getSumOfArray(minSubArray));
+
+        return minProductIDs;
+
+    }
+
+    private ArrayList<HashMap<String,Object>> getMinSubArray(ArrayList<ArrayList<HashMap<String,Object>>> subarrays, int threshold) {
+        int minCost = Integer.MAX_VALUE;
+        ArrayList<HashMap<String,Object>> minSub = new ArrayList<>();
+        for (ArrayList<HashMap<String,Object>> sub : subarrays) {
+            int cost = getSumOfArray(sub);
+            if (cost >= threshold && cost < minCost){
+                minCost=cost;
+                minSub = sub;
+            }
+        }
+        return minSub;
+    }
+
+    private int getSumOfArray(ArrayList<HashMap<String,Object>> array) {
+        int sum = 0;
+        for (HashMap<String,Object> pInfo: array){
+            int price = (int) pInfo.get("PRICE");
+            int amount = (int) pInfo.get("AMOUNT");
+            sum += (price * amount);
+        }
+        return sum;
+    }
+
+    private ArrayList<ArrayList<HashMap<String,Object>>> mergeElement(ArrayList<ArrayList<HashMap<String,Object>>> subarrays, HashMap<String,Object> e) {
+        ArrayList<ArrayList<HashMap<String,Object>>> newArrays = new ArrayList<>(subarrays);
+        if (subarrays.size() > 0) {
+            for (ArrayList<HashMap<String,Object>> sub : subarrays) {
+                ArrayList<HashMap<String,Object>> newSub = new ArrayList<>(sub);
+                newSub.add(e);
+                newArrays.add(newSub);
+            }
+        }
+        ArrayList<HashMap<String,Object>> newSub = new ArrayList();
+        newSub.add(e);
+        newArrays.add(newSub);
+        return newArrays;
+
+    }
+
 
 }
