@@ -92,10 +92,12 @@ public class Store {
     }
 
     public void setNotBuyProduct(int pid){
-        HashMap<String,Object> product = products.get(pid);
-        product.put("BUY", false);
-        products.put(pid,product);
-        Log.d(TAG, "Store " + sid + "not buy product:" + product.toString());
+        if (products.containsKey(pid)) {
+            HashMap<String, Object> product = products.get(pid);
+            product.put("BUY", false);
+            products.put(pid, product);
+            Log.d(TAG, "Store " + sid + "not buy product:" + product.toString());
+        }
     }
 
     public boolean reachThreshold(){
@@ -160,10 +162,11 @@ public class Store {
 
     public ArrayList<Integer> getMinProductSetToReachThreshold(){
         if (!canReachThreshold()){
+            Log.d(TAG,"Store " + sid + "can not reach Threshold!");
             return null;
         }
 
-        ArrayList<Integer> minProductIDs = new ArrayList<>();
+        ArrayList<Integer> minBuyProductIDs = new ArrayList<>();
 
         ArrayList<HashMap<String,Object>> notbuyProducts = new ArrayList<>();
         for (HashMap<String,Object> pInfo:products.values()){
@@ -184,8 +187,11 @@ public class Store {
 
         ArrayList<HashMap<String,Object>> minSubArray = getMinSubArray(subarrays, diff);
         Log.d(TAG, "Min SubArrays:" + minSubArray.toString() +";cost="+getSumOfArray(minSubArray));
+        for (HashMap<String, Object> pInfo: minSubArray){
+            minBuyProductIDs.add((int)pInfo.get("PID"));
+        }
 
-        return minProductIDs;
+        return minBuyProductIDs;
 
     }
 

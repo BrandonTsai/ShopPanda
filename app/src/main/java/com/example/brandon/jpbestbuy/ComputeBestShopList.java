@@ -38,17 +38,38 @@ public class ComputeBestShopList {
         minCost = countTotalBuyCost(minCostStores);
         Log.d(TAG, "adjust minCost=" + minCost);
 
+        //HashMap<Integer, Store> reachThresholdStores = getReachThresholdStores(minCostStores);
         HashMap<Integer, Store> notThresholdStores = getNotThresholdStores(minCostStores);
-
-//        while (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
-        if (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
+        while (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
+        //if (notThresholdStores.size()>1 && hasStoreCanReachThreshold(notThresholdStores)){
             Log.d(TAG,"Compute best shop for notThresholdStores");
             //HashMap<Integer, Product> notThresholdProducts = getNotThresholdProducts(minCostStores, products);
             int minCostNTStoreID = -1;
-            int minTotalCost = 0;
+            int minTotalCost = countTotalBuyCost(notThresholdStores);
+            Log.d(TAG, "oriNTStores totalCost:" + countTotalBuyCost(notThresholdStores));
             for (Store store : notThresholdStores.values()){
-                HashMap<Integer, Store> tmpNTStores = letStoreReachthreshold(store.sid, notThresholdStores);
+                if (store.canReachThreshold()) {
+                    HashMap<Integer, Store> tmpNTStores = letStoreReachthreshold(store.sid, notThresholdStores);
+                    int tmpTotalCost = countTotalBuyCost(tmpNTStores);
+                    Log.d(TAG, "tmpNTStores totalCost:" + tmpTotalCost);
+                    if (tmpTotalCost < minTotalCost){
+                        minCostNTStoreID = store.sid;
+                        minTotalCost = tmpTotalCost;
+                    }
+                }
             }
+
+            if (minCostNTStoreID < 0) {
+                Log.d(TAG, "no store changed!" );
+                break;
+            }
+
+            Log.d(TAG, "changed: store " + minCostNTStoreID + " reach threshold!");
+
+            //ToDo: add threshould Store out to reachThresholdStores list.
+
+            //ToDo: remove threshould Store out of notThresholdStores list.
+            notThresholdStores.remove(minCostNTStoreID);
 
         }
 
@@ -57,9 +78,17 @@ public class ComputeBestShopList {
     }
 
     private HashMap<Integer, Store> letStoreReachthreshold(int sid, HashMap<Integer, Store> stores) {
-        Store store = stores.get(sid);
-        store.getMinProductSetToReachThreshold();
-        return null;
+        HashMap<Integer, Store> newStores = cloneStoreList(stores);
+        Store store = newStores.get(sid);
+        ArrayList<Integer> minBuyPIds = store.getMinProductSetToReachThreshold();
+        for (Integer pid: minBuyPIds){
+            for (Store s: newStores.values()){
+                s.setNotBuyProduct(pid);
+            }
+            //Log.d(TAG,"Store" + store.sid + " buy " + pid);
+            store.setBuyProduct(pid);
+        }
+        return newStores;
     }
 
     private boolean hasStoreCanReachThreshold(HashMap<Integer, Store> notThresholdStores) {
