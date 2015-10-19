@@ -34,7 +34,7 @@ public class ComputeBestShopList {
         Log.d(TAG,"\n---------------\n");
 
 
-        minCostStores = buyProductInThresholdStores(minCostStores, products);
+        minCostStores = buyProductInThresholdStores(minCostStores);
         minCost = countTotalBuyCost(minCostStores);
         Log.d(TAG, "adjust minCost=" + minCost);
 
@@ -45,6 +45,7 @@ public class ComputeBestShopList {
             Log.d(TAG,"Compute best shop for notThresholdStores");
             //HashMap<Integer, Product> notThresholdProducts = getNotThresholdProducts(minCostStores, products);
             int minCostNTStoreID = -1;
+            HashMap<Integer, Store> minCostNTStores = null;
             int minTotalCost = countTotalBuyCost(notThresholdStores);
             Log.d(TAG, "oriNTStores totalCost:" + countTotalBuyCost(notThresholdStores));
             for (Store store : notThresholdStores.values()){
@@ -53,6 +54,7 @@ public class ComputeBestShopList {
                     int tmpTotalCost = countTotalBuyCost(tmpNTStores);
                     Log.d(TAG, "tmpNTStores totalCost:" + tmpTotalCost);
                     if (tmpTotalCost < minTotalCost){
+                        minCostNTStores = tmpNTStores;
                         minCostNTStoreID = store.sid;
                         minTotalCost = tmpTotalCost;
                     }
@@ -66,15 +68,29 @@ public class ComputeBestShopList {
 
             Log.d(TAG, "changed: store " + minCostNTStoreID + " reach threshold!");
 
-            //ToDo: add threshould Store out to reachThresholdStores list.
+            //ToDO: Adjust MinCostNTStores
+            minCostNTStores = buyProductInThresholdStores(minCostNTStores);
+            minTotalCost = countTotalBuyCost(minCostNTStores);
+            Log.d(TAG, "adjust minTotalCost=" + minTotalCost);
+
+            //ToDo: update get threshould Store Object in minCostStores.
+            minCostStores.remove(minCostNTStoreID);
+            minCostStores.put(minCostNTStoreID, minCostNTStores.get(minCostNTStoreID));
 
             //ToDo: remove threshould Store out of notThresholdStores list.
-            notThresholdStores.remove(minCostNTStoreID);
-
+            notThresholdStores = getNotThresholdStores(minCostStores);
         }
 
-        HashMap<Integer, Store> bestShopList = new HashMap<>();
-        return bestShopList;
+        for (int sid : notThresholdStores.keySet()){
+            minCostStores.remove(sid);
+            minCostStores.put(sid, notThresholdStores.get(sid));
+        }
+
+        Log.d(TAG, "Final Shop List:" + minCostStores.toString());
+        minCost = countTotalBuyCost(minCostStores);
+        Log.d(TAG, "Final minCost=" + minCost);
+
+        return minCostStores;
     }
 
     private HashMap<Integer, Store> letStoreReachthreshold(int sid, HashMap<Integer, Store> stores) {
@@ -160,6 +176,7 @@ public class ComputeBestShopList {
     }
 
     public int countTotalBuyCost(HashMap<Integer, Store> stores){
+        Log.d(TAG, "countTotalBuyCost!");
         int totalCost = 0;
         for (Store store: stores.values()){
             totalCost += store.getBuyCostWithDiscount();
@@ -168,17 +185,33 @@ public class ComputeBestShopList {
     }
 
 
-    private HashMap<Integer, Store> buyProductInThresholdStores(HashMap<Integer, Store> stores, HashMap<Integer, Product> products) {
+    private HashMap<Integer, Store> buyProductInThresholdStores(HashMap<Integer, Store> stores) {
         Log.d(TAG, "buyProductInThresholdStores?");
+
+        HashMap<Integer, Integer[]> productLowestPrice = new HashMap<>(); //<pid, [sid, lowestPrice]>
+        //Count each products lowest prices
+        for (Store store : stores.values()){
+            for (HashMap<String, Object> pInfo : store.products.values()){
+                Integer pid = (Integer)pInfo.get("PID");
+                Integer price = (Integer) pInfo.get("PRICE");
+                if (!productLowestPrice.containsKey(pid) || (price < productLowestPrice.get(pid)[1])){
+                    Integer[] minStorePrice = {store.sid, price};
+                    productLowestPrice.put(pid, minStorePrice);
+                }
+            }
+        }
+        Log.d(TAG, "productLowestPrice:"+productLowestPrice.toString());
+
         for (Store store : stores.values()){
             if (store.reachThreshold()){
                 // if noBuyProduct's price *discount is cheaper than other stores
                 ArrayList<Integer> notBuyProductsID = store.getNoBuyProductsID();
                 if (notBuyProductsID.size()>0){
                     for (int pid : notBuyProductsID){
-                        Integer[] minStorePrice = products.get(pid).getCheapestStorePrice();
+                        Integer[] minStorePrice = productLowestPrice.get(pid);
                         int discountPrice = store.getProductDiscountPrice(pid);
                         if (discountPrice <= minStorePrice[1]){
+                            Log.d(TAG, "buy "+pid+" in store " + store.sid );
                             store.setBuyProduct(pid);
                             stores.get(minStorePrice[0]).setNotBuyProduct(pid);
                         }
