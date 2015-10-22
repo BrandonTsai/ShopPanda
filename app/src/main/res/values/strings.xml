@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Shop Panda</string>
+    <string name="add_store">Add Store</string>
+    <string name="DB">BestBuy</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_edit_store">StoreInfo</string>
+    <string name="title_activity_add_product">AddProduct</string>
+    <string name="title_activity_edit_store_product">EditStoreProduct</string>
+    <string-array name="tax_list">
+        <item>No Tax</item>
+        <item>Include Tax</item>
+    </string-array>
+
+    <string-array name="product_list">
+        <item>New Product</item>
+        <item>Test</item>
+    </string-array>
+
+    <string name="title_activity_compute_best_buy2">Compute Result</string>
+
+    <string-array name="listview1_spinner1">
+        <item>Food</item>
+        <item>Clothes</item>
+        <item>Drug</item>
+        <item>Electronics</item>
+        <item>Gift</item>
+    </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+</resources>

@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity"
+    android:id="@+id/ssc">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_store"
+                android:id="@+id/button"
+                android:onClick="addStoreDialog"
+                android:nestedScrollingEnabled="false" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Compute"
+                android:id="@+id/ComputeBestResult"
+                android:onClick="goSelectStore"
+                android:nestedScrollingEnabled="false"
+                android:textColor="@android:color/holo_orange_dark"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listStore"
+            android:choiceMode="none"
+            android:nestedScrollingEnabled="true"
+            android:smoothScrollbar="true" />
+
+        <com.fortysevendeg.swipelistview.SwipeListView
+            xmlns:swipe="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/swipe_list_main"
+            android:listSelector="#00000000"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            swipe:swipeFrontView="@+id/front"
+            swipe:swipeBackView="@+id/back"
+            swipe:swipeActionLeft="reveal"
+            swipe:swipeActionRight="dismiss"
+            swipe:swipeMode="left"
+            swipe:swipeCloseAllItemsWhenMoveList="false"
+            swipe:swipeOpenOnLongPress="true"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
