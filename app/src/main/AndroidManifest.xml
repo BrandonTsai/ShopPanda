@@ -39,7 +39,8 @@
             android:name=".SelectStoreToComputeActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         </activity>
-        <activity android:name=".BestShopResult" >
+        <activity android:name=".BestShopResult"
+                  android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
     </application>
 

@@ -83,7 +83,6 @@ public class Store {
         return totalCost;
     }
 
-
     public void setBuyProduct(int pid){
         HashMap<String,Object> product = products.get(pid);
         product.put("BUY", true);
@@ -234,5 +233,15 @@ public class Store {
 
     }
 
+
+    public ArrayList<HashMap<String,Object>> getBuyProductsInfo(){
+        ArrayList<HashMap<String,Object>> buyProducts = new ArrayList<>();
+        for (HashMap<String,Object> pInfo:products.values()){
+            if ((Boolean) pInfo.get("BUY")) {
+                buyProducts.add(pInfo);
+            }
+        }
+        return buyProducts;
+    }
 
 }

@@ -30,8 +30,7 @@ public class SelectStoreToComputeActivity extends AppCompatActivity {
 
         storeList = (ListView) findViewById(R.id.lv_select_store_check_list);
         storeList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-//        SelectStoreListAdapter storeListAdapter = new SelectStoreListAdapter(this, stores);
-//        storeList.setAdapter(storeListAdapter);
+
         String[] listContent = getStoreNames(stores);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice, listContent);
@@ -47,25 +46,6 @@ public class SelectStoreToComputeActivity extends AppCompatActivity {
         return storeNames;
     }
 
-//    public void goComputeResult(View v){
-//        ArrayList<HashMap<String, String>> selectStores = new ArrayList<>();
-//
-//        SparseBooleanArray sparseBooleanArray = storeList.getCheckedItemPositions();
-//        for (int i = 0 ; i <stores.size(); i++){
-//            if (sparseBooleanArray.get(i)){
-//               selectStores.add(stores.get(i));
-//            }
-//        }
-//        Log.d(TAG, "Select stores:"+selectStores.toString());
-//
-//        if (verifySelects(selectStores)) {
-//            Intent it = new Intent(SelectStoreToComputeActivity.this, ComputeBestBuy2.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putStringArrayList("storeIds", getStoreIDs(selectStores));
-//            it.putExtras(bundle);
-//            startActivity(it);
-//        }
-//    }
 
     public  void getComputedResult2(View v){
 
@@ -88,44 +68,10 @@ public class SelectStoreToComputeActivity extends AppCompatActivity {
             it.putExtras(bundle);
             startActivity(it);
         }
-        //ComputeBestShopList newCompute = new ComputeBestShopList();
-        //newCompute.getBestShopList(selectStores);
     }
 
 
-//    private ArrayList<String> getStoreIDs(ArrayList<HashMap<String, String>> selectStores) {
-//        ArrayList<String> storeIds = new ArrayList<>();
-//        for (HashMap<String, String> store : selectStores){
-//            storeIds.add(store.get("_id"));
-//        }
-//        return storeIds;
-//    }
 
-//    private boolean verifySelects(ArrayList<HashMap<String, String>> selectStores) {
-//
-//        if (selectStores.size()<2){
-//            Toast.makeText(SelectStoreToComputeActivity.this, "You have select at least 2 stores", Toast.LENGTH_LONG).show();
-//            return false;
-//        }
-//
-//        ArrayList<String> noProductStoreNames = new ArrayList<>();
-//        for (HashMap<String, String> store: selectStores){
-//            int sid = Integer.valueOf(store.get("_id"));
-//            Cursor allPrice = DB.getAllPrice(sid);
-//            if(allPrice==null || allPrice.getCount()==0){
-//                noProductStoreNames.add(store.get("NAME"));
-//            }
-//        }
-//
-//        if (noProductStoreNames.size()>0){
-//            Toast.makeText(SelectStoreToComputeActivity.this,
-//                    "Following Stores has no product:" + noProductStoreNames.toString(),
-//                    Toast.LENGTH_LONG).show();
-//            return false;
-//        }
-//
-//        return true;
-//    }
 
     private boolean verifySelects(HashMap<Integer, Store> selectStores) {
 
