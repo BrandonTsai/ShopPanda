@@ -14,7 +14,11 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="15dp">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -23,7 +27,8 @@
                 android:text="@string/add_store"
                 android:id="@+id/button"
                 android:onClick="addStoreDialog"
-                android:nestedScrollingEnabled="false" />
+                android:nestedScrollingEnabled="false"
+                android:textSize="20dp"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -33,17 +38,18 @@
                 android:id="@+id/ComputeBestResult"
                 android:onClick="goSelectStore"
                 android:nestedScrollingEnabled="false"
-                android:textColor="@android:color/holo_orange_dark"/>
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listStore"
-            android:choiceMode="none"
-            android:nestedScrollingEnabled="true"
-            android:smoothScrollbar="true" />
+        <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/listStore"-->
+            <!--android:choiceMode="none"-->
+            <!--android:nestedScrollingEnabled="true"-->
+            <!--android:smoothScrollbar="true" />-->
 
         <com.fortysevendeg.swipelistview.SwipeListView
             xmlns:swipe="http://schemas.android.com/apk/res-auto"

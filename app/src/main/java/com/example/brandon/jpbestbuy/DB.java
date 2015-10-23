@@ -69,6 +69,7 @@ public class DB{
     Store Table
      */
     public static void addStore(String name, int threshold, int discount, String location) {
+
         ContentValues cv=new ContentValues(4);
 
         cv.put("NAME", name);

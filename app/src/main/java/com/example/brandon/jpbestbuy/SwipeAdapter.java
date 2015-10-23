@@ -92,6 +92,7 @@ public class SwipeAdapter extends ArrayAdapter<String> {
 
         String item = objects.get(position);
         holder.mFrontText.setText(item);
+        holder.mFrontText.setPadding(20,5,5,5);
         return convertView;
     }
 

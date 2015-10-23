@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //                mSwipeListView.setSwipeActionRight(settings.getSwipeActionRight());
         mSwipeListView.setOffsetLeft(deviceWidth * 1 / 3);
 //                mSwipeListView.setOffsetRight(convertDpToPixel(settings.getSwipeOffsetRight()));
-        mSwipeListView.setAnimationTime(1);
+        //mSwipeListView.setAnimationTime(1);
         mSwipeListView.setSwipeOpenOnLongPress(false);
     }
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 	private void initMockupCase1() {
-		setPreference("mockup_inited",true);
+		setPreference("mockup_inited", true);
 
 		DB.addProduct("Prodcut1", 5);
 		DB.addProduct("Prodcut2", 2);
@@ -166,13 +166,14 @@ public class MainActivity extends AppCompatActivity {
 		DB.addProduct("Prodcut4", 1);
 		DB.addProduct("Prodcut5", 5);
 
-		DB.addStore("OS drug - A", 5400, 8, "Null");
+		DB.addStore("OS drug", 5400, 8, "Null");
 		DB.addPrice(1, 1, 200);
 		DB.addPrice(1, 2, 200);
 		DB.addPrice(1, 3, 3000);
 		DB.addPrice(1, 4, 400);
 
-		DB.addStore("OX drug - B", 5400, 8, "25.0497191,121.5747108");
+        String addr = Utils.getAddressFromLocation(this, Double.valueOf("25.0497191"), Double.valueOf("121.5747108"));
+        DB.addStore("Sun drug", 5400, 8, "25.0497191,121.5747108;"+addr);
 		DB.addPrice(2, 1, 150);
 		DB.addPrice(2, 2, 250);
 		DB.addPrice(2, 3, 3000);
@@ -192,7 +193,11 @@ public class MainActivity extends AppCompatActivity {
         Location location = getGPSLocation();
         if (location != null) {
             TextView locationTextView = (TextView) addStoreDlg.findViewById(R.id.tv_add_store_GPS);
-            String locationString = Location.convert(location.getLatitude(), Location.FORMAT_DEGREES) + "," + Location.convert(location.getLongitude(), Location.FORMAT_DEGREES);
+            String latitude = Location.convert(location.getLatitude(), Location.FORMAT_DEGREES);
+            String longitude = Location.convert(location.getLongitude(), Location.FORMAT_DEGREES);
+            String locationString = latitude
+                    + "," + longitude
+                    + ";" + Utils.getAddressFromLocation(this, Double.valueOf(latitude), Double.valueOf(longitude));
             locationTextView.setText(locationString);
         }else {
             Toast.makeText(this, "無法定位座標", Toast.LENGTH_LONG).show();
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
             Criteria criteria = new Criteria();	//資訊提供者選取標準
             bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);	//使用GPS定位座標
+            Location location = locationManager.getLastKnownLocation(bestProvider);
             return location;
         } else {
             Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
@@ -271,25 +276,26 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
 
-//        // Go to different intent if item selected
-//        Intent it = null;
-//        switch (id){
-//            case R.id.menu_item1:
-//                Log.d(sCursor, "select menu item " + position);
-//                it = new Intent(MainActivity.this, TestList1.class);
-//                startActivity(it);
-//                break;
-//            case R.id.menu_item2:
-//                Log.d(sCursor, "select menu item "+ position);
-//                it = new Intent(MainActivity.this, TestList2.class);
-//                startActivity(it);
-//                break;
-//            case R.id.menu_item3:
-//                Log.d(sCursor, "select menu item "+ position);
-//                it = new Intent(MainActivity.this, TestList3.class);
-//                startActivity(it);
-//                break;
-//        }
+        // Go to different intent if item selected
+        Intent it = null;
+        switch (id){
+            case R.id.menu_main:
+                Log.d(TAG, "select menu item: main");
+                //it = new Intent(MainActivity.this, TestList1.class);
+                //startActivity(it);
+                break;
+            case R.id.menu_map:
+                Log.d(TAG, "select menu item: Maps");
+                it = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(it);
+                break;
+            case R.id.menu_shoplist:
+                Log.d(TAG, "select menu item: Shopping List");
+                //it = new Intent(MainActivity.this, TestList1.class);
+                //startActivity(it);
+                break;
+
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {

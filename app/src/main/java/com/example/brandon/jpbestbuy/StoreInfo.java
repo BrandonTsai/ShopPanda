@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -67,13 +68,22 @@ public class StoreInfo extends AppCompatActivity {
             String location = jsonStore.getString("LOCATION");
 
             if (!location.equals("Null")) {
-                String[] lc = location.split(",");
-                Double latitude = Double.valueOf(lc[0]);
-                Double longitude = Double.valueOf(lc[1]);
-                locationTextView.setText(getAddressFromLocation(latitude,longitude));
+
+                String[] lc = location.split(";");
+                String[] gps = lc[0].split(",");
+                Double latitude = Double.valueOf(gps[0]);
+                Double longitude = Double.valueOf(gps[1]);
+
+                //locationTextView.setText(getAddressFromLocation(latitude,longitude));
+                if (lc[1] != null){
+                    locationTextView.setText(lc[1]);
+                } else {
+                    locationTextView.setText(location);
+                }
                 locationTextView.setOnClickListener(new LocationOnClickListener());
             } else {
                 locationTextView.setText("Cat not get location!");
+                locationTextView.setTextColor(Color.LTGRAY);
             }
 
 
@@ -113,10 +123,17 @@ public class StoreInfo extends AppCompatActivity {
         public void onClick(View v) {
             try {
                 String location = jsonStore.getString("LOCATION");
-                String[] lc = location.split(",");
-                Double latitude = Double.valueOf(lc[0]);
-                Double longitude = Double.valueOf(lc[1]);
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%s", latitude, longitude, getAddressFromLocation(latitude,longitude));
+                String[] lc = location.split(";");
+                String[] gps = lc[0].split(",");
+                Double latitude = Double.valueOf(gps[0]);
+                Double longitude = Double.valueOf(gps[1]);
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=", latitude, longitude);
+                if (lc[1] != null) {
+                    uri = uri + lc[1];
+                }
+                else {
+                    uri = uri + getAddressFromLocation(latitude, longitude);
+                }
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 context.startActivity(intent);
             } catch (JSONException e) {
