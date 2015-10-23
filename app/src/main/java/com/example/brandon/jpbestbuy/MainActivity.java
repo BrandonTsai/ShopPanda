@@ -5,11 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -190,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         addStoreDlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
         addStoreDlg.setContentView(R.layout.dialog_add_store);
 
-        Location location = getGPSLocation();
+        Location location = Utils.getGPSLocation((LocationManager) getSystemService(Context.LOCATION_SERVICE));
         if (location != null) {
             TextView locationTextView = (TextView) addStoreDlg.findViewById(R.id.tv_add_store_GPS);
             String latitude = Location.convert(location.getLatitude(), Location.FORMAT_DEGREES);
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                     + ";" + Utils.getAddressFromLocation(this, Double.valueOf(latitude), Double.valueOf(longitude));
             locationTextView.setText(locationString);
         }else {
-            Toast.makeText(this, "無法定位座標", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "無法定位座標! 請開啟定位服務!", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"無法定位座標");
         }
 
@@ -219,20 +217,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private Location getGPSLocation(){
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-            Criteria criteria = new Criteria();	//資訊提供者選取標準
-            bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            return location;
-        } else {
-            Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));	//開啟設定頁面
-        }
-        return null;
-    }
+//    private Location getGPSLocation(){
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//            //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+//            Criteria criteria = new Criteria();	//資訊提供者選取標準
+//            bestProvider = locationManager.getBestProvider(criteria, true);
+//            Location location = locationManager.getLastKnownLocation(bestProvider);
+//            return location;
+//        } else {
+//            Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
+//            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));	//開啟設定頁面
+//        }
+//        return null;
+//    }
 
     private Button.OnClickListener addStoreSaveOnClkLis = new Button.OnClickListener() {
         public void onClick(View v) {

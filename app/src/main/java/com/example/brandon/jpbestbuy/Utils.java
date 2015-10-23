@@ -3,7 +3,10 @@ package com.example.brandon.jpbestbuy;
 import android.content.Context;
 import android.database.Cursor;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -170,6 +173,18 @@ public class Utils {
 		return null;
 	}
 
+
+    public static Location getGPSLocation(LocationManager locationManager){
+        String bestProvider = LocationManager.GPS_PROVIDER;
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+            Criteria criteria = new Criteria();	//資訊提供者選取標準
+            bestProvider = locationManager.getBestProvider(criteria, true);
+            Location location = locationManager.getLastKnownLocation(bestProvider);
+            return location;
+        }
+        return null;
+    }
 
 
 }
