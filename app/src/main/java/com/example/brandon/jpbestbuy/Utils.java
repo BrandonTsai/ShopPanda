@@ -173,6 +173,11 @@ public class Utils {
 		return null;
 	}
 
+	public static Double[] getLatLngFromAddr(Context mContext, String addr){
+		Double[] latlng = null;
+		return latlng;
+	}
+
 
     public static Location getGPSLocation(LocationManager locationManager){
         String bestProvider = LocationManager.GPS_PROVIDER;

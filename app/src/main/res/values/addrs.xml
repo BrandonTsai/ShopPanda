@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="map_spinner_category">
+        <item>Drug Store</item>
+        <item>Super Market</item>
+        <item>Electronics Store</item>
+        <item>Clothes</item>
+    </string-array>
+
+    <!-- Drug Stores -->
+    <string-array name="store_os_drug">
+        <item>35.708798,139.668104@ＯＳドラッグ中野店@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
+        <item>35.718798,139.658104@ＯＳドラッグ中野店2@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
+    </string-array>
+
+    <string-array name="store_x_drug">
+        <item>35.690586,139.704125@薬 マツモトキヨシ 新宿三丁目店@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
+        <item>35.700586,139.7141254@薬 マツモトキヨシ 新宿三丁目店2@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
+    </string-array>
+
+
+    <!-- Super Markets -->
+
+
+    <!-- Electronics Store -->
+
+
+    <!-- Clothes -->
+
+</resources>

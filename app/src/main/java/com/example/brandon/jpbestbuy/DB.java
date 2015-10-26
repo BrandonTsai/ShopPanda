@@ -57,7 +57,6 @@ public class DB{
                     + "PID INTEGER,"
                     + "PRICE INTEGER"
                     + ");");
-
         } catch (Exception e) {
             Log.d(TAG, "create table error");
             e.printStackTrace();
