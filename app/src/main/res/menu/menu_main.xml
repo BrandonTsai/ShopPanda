@@ -7,6 +7,6 @@
           android:title="Shopping List" />
     <item android:id="@+id/menu_map"
           android:title="Store Map" />
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100" app:showAsAction="never" />-->
 </menu>

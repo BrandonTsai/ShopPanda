@@ -325,6 +325,12 @@ public class StoreInfo extends AppCompatActivity {
         }
     }
 
+
+    public void goBack(View v){
+        finish();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -339,15 +345,33 @@ public class StoreInfo extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+        // Go to different intent if item selected
+        Intent it = null;
+        switch (id){
+            case R.id.menu_main:
+                Log.d(TAG, "select menu item: main");
+                it = new Intent(this, MainActivity.class);
+                startActivity(it);
+                break;
+            case R.id.menu_map:
+                Log.d(TAG, "select menu item: Maps");
+                it = new Intent(this, MapsActivity.class);
+                startActivity(it);
+                break;
+            case R.id.menu_shoplist:
+                Log.d(TAG, "select menu item: Shopping List");
+                it = new Intent(this, ShopListActivity.class);
+                startActivity(it);
+                break;
+
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void goBack(View v){
-        finish();
     }
 }

@@ -284,13 +284,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_map:
                 Log.d(TAG, "select menu item: Maps");
-                it = new Intent(MainActivity.this, MapsActivity.class);
+                it = new Intent(this, MapsActivity.class);
                 startActivity(it);
                 break;
             case R.id.menu_shoplist:
                 Log.d(TAG, "select menu item: Shopping List");
-                //it = new Intent(MainActivity.this, TestList1.class);
-                //startActivity(it);
+                it = new Intent(this, ShopListActivity.class);
+                startActivity(it);
                 break;
 
         }
