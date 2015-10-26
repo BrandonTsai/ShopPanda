@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         storeResIds = new ArrayList<>();
 
         LinkedHashMap<String, Integer> drugStoresResIds = new LinkedHashMap<>();
-        drugStoresResIds.put("OS Drug", R.array.store_os_drug);
+        drugStoresResIds.put("マツモトキヨシ(松本清)", R.array.store_matsukiyo);
         drugStoresResIds.put("X Drug", R.array.store_x_drug);
         storeResIds.add(drugStoresResIds);
 
@@ -68,8 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         storeResIds.add(electronicStoresResIds);
 
         LinkedHashMap<String, Integer> clothesStoresResIds = new LinkedHashMap<>();
-        clothesStoresResIds.put("4 Drug", R.array.store_os_drug);
-        clothesStoresResIds.put("X Drug", R.array.store_x_drug);
+        clothesStoresResIds.put("MIIA", R.array.store_miia);
         storeResIds.add(clothesStoresResIds);
     }
 

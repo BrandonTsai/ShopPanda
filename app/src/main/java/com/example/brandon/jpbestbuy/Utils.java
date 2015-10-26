@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -173,11 +174,31 @@ public class Utils {
 		return null;
 	}
 
-	public static Double[] getLatLngFromAddr(Context mContext, String addr){
-		Double[] latlng = null;
-		return latlng;
+	public static Double[] getLatLngFromAddr(Context mContext, String addr) {
+		Double[] latlng = new Double[2];
+
+
+		Geocoder coder = new Geocoder(mContext);
+		List<Address> address;
+
+		try {
+			address = coder.getFromLocationName(addr, 5);
+			if (address == null) {
+				return null;
+			}
+			Address location = address.get(0);
+			latlng[0] = location.getLatitude();
+			latlng[1] = location.getLongitude();
+
+			return latlng;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
+
+	
 
     public static Location getGPSLocation(LocationManager locationManager){
         String bestProvider = LocationManager.GPS_PROVIDER;
