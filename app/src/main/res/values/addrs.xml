@@ -20,14 +20,10 @@
         <item>35.674261,139.763762@薬 マツモトキヨシ 有楽町イトシアプラザ店@東京都千代田区有楽町2-7-1</item>
         <item>35.708114,139.773380@薬 マツモトキヨシ 上野広小路店@東京都台東区上野4-4-2</item>
         <item>35.709176,139.774638@薬 マツモトキヨシ 上野アメ横Part2店@東京都台東区上野4-7-17</item>
-        <item>#薬 マツモトキヨシ 上野アメ横Part1店#東京都台東区上野4-10-16</item>
-        <item>#薬 マツモトキヨシ 銀座５ｔｈ店#東京都中央区銀座5-5-1</item>
+        <item>35.7106876,139.7744127@薬 マツモトキヨシ 上野アメ横Part1店@東京都台東区上野4-10-16</item>
+        <item>35.6718168,139.7638452@薬 マツモトキヨシ 銀座５ｔｈ店@東京都中央区銀座5-5-1</item>
     </string-array>
 
-    <string-array name="store_x_drug">
-        <item>35.690586,139.704125@薬 マツモトキヨシ 新宿三丁目店@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
-        <item>35.700586,139.7141254@薬 マツモトキヨシ 新宿三丁目店2@5 Chome-56-8 Nakano、Tokyo 164-0001、日本</item>
-    </string-array>
 
 
     <!-- Super Markets -->
@@ -36,13 +32,29 @@
     <!-- Electronics Store -->
 
 
+
     <!-- Clothes -->
+    <string-array name="store_abc_mark">
+        <item>#</item>
+    </string-array>
+
+    <string-array name="store_skechers">
+        <item>#</item>
+    </string-array>
+
+
     <string-array name="store_miia">
         <item>35.691489,139.701198@MIIA LUMINE EST新宿店 B1F@東京都新宿区新宿3-38-1</item>
         <item>35.659560,139.698728@MIIA 渋谷109店 2F@東京都渋谷区道玄坂2-29-1</item>
         <item>35.728876,139.709377@MIIA LUMINE池袋店 3F@東京都豊島区西池袋1-11-1</item>
         <item>35.465183,139.622802@MIIA LUMINE横浜店 4F@神奈川県横浜市西区高島2-16-1</item>
         <item>35.610668,140.115342@MIIA 千葉オーロラモールジュンヌ店 2F@千葉県千葉市中央区新町1001</item>
+    </string-array>
+
+
+    <!-- Mountain Fuji -->
+    <string-array name="hotspot_fuji">
+        <item>#</item>
     </string-array>
 
 </resources>

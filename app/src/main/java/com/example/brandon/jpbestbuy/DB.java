@@ -48,7 +48,8 @@ public class DB{
             db.execSQL("CREATE TABLE IF NOT EXISTS products ("
                     + "_id INTEGER PRIMARY KEY autoincrement,"
                     + "NAME TEXT,"
-                    + "AMOUNT INTEGER"
+                    + "AMOUNT INTEGER,"
+                    + "BOUGHT INTEGER"
                     + ");");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS prices ("
@@ -114,7 +115,15 @@ public class DB{
     Product Table
      */
     public static Cursor getAllProduct() {
-        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT"}, null,
+        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT"}, null,
+                null, null, null, null);
+
+        return cursor;
+    }
+
+    public static Cursor getAllNotBoughtProduct() {
+        String selection = "BOUGHT=0";
+        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT"}, selection,
                 null, null, null, null);
 
         return cursor;
@@ -122,7 +131,7 @@ public class DB{
 
 
     public static HashMap<String,String> getProduct(Integer pid) {
-        Cursor cursor = db.query("products", new String[] { "_id", "NAME", "AMOUNT" }, "_id="+pid,
+        Cursor cursor = db.query("products", new String[] { "_id", "NAME", "AMOUNT", "BOUGHT" }, "_id="+pid,
                 null, null, null, null);
         ArrayList<HashMap<String,String>> pInfo = Utils.cur2ArrayList(cursor);
         Log.d(TAG, "get product:" + pInfo.toString());
@@ -130,12 +139,44 @@ public class DB{
     }
 
     public static void addProduct(String name, int amount) {
-        ContentValues cv=new ContentValues(2);
+        Log.d(TAG, "add product:" + name);
+
+        ContentValues cv=new ContentValues(3);
 
         cv.put("NAME", name);
         cv.put("AMOUNT", amount);
+        cv.put("BOUGHT", 0);
 
         db.insert("products", null, cv);
+    }
+
+    public static void setProductIsBought(int id) {
+        ContentValues cv=new ContentValues(1);
+
+        cv.put("BOUGHT", 1);
+
+        db.update("products", cv, "_id=" + id, null);
+
+    }
+
+    public static void setProductIsNotBought(int id) {
+        ContentValues cv=new ContentValues(1);
+
+        cv.put("BOUGHT", 0);
+
+        db.update("products", cv, "_id=" + id, null);
+
+    }
+
+    public static void updateProduct(int id, String name, int amount, int bought) {
+        ContentValues cv=new ContentValues(3);
+
+        cv.put("NAME", name);
+        cv.put("AMOUNT", amount);
+        cv.put("BOUGHT", bought);
+
+        db.update("products", cv, "_id=" + id, null);
+
     }
 
 

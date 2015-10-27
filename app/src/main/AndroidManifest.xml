@@ -62,9 +62,8 @@
 
         <activity
             android:name=".MapsActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:label="@string/title_activity_maps" >
-        </activity>
-        <activity android:name=".ShopListActivity" >
         </activity>
     </application>
 

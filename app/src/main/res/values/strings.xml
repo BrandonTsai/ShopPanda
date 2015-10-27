@@ -11,9 +11,14 @@
         <item>Include Tax</item>
     </string-array>
 
-    <string-array name="product_list">
-        <item>New Product</item>
-        <item>Test</item>
+    <!--<string-array name="product_list">-->
+        <!--<item>New Product</item>-->
+        <!--<item>Test</item>-->
+    <!--</string-array>-->
+
+    <string-array name="product_status">
+        <item>Not bought yet</item>
+        <item>Bought</item>
     </string-array>
 
     <string name="title_activity_compute_best_buy2">Compute Result</string>

@@ -197,9 +197,6 @@ public class Utils {
 		return null;
 	}
 
-
-	
-
     public static Location getGPSLocation(LocationManager locationManager){
         String bestProvider = LocationManager.GPS_PROVIDER;
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -213,4 +210,7 @@ public class Utils {
     }
 
 
+    public static int getDeviceWidth(Context context){
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
 }

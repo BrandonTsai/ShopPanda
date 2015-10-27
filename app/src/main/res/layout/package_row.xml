@@ -9,14 +9,8 @@
         android:layout_height="80dp"
         android:tag="back"
         android:background="#eee"
+        android:layout_marginBottom="4dp"
         >
-
-        <Button
-            android:id="@+id/example_row_b_action_1"
-            android:layout_width="wrap_content"
-            android:background="@null"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <Button
             android:id="@+id/example_row_b_action_2"
@@ -33,6 +27,13 @@
             android:layout_gravity="center"
             android:layout_height="60dp"
             android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/example_row_b_action_1"
+            android:layout_width="wrap_content"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" />
     </LinearLayout>
 
     <RelativeLayout
@@ -41,7 +42,9 @@
         android:tag="front"
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="80dp" >
+        android:layout_height="80dp"
+        android:layout_marginBottom="4dp"
+        >
 
         <TextView
             android:id="@+id/example_row_tv_title"

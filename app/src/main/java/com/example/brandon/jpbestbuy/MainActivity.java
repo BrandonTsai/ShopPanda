@@ -3,8 +3,8 @@ package com.example.brandon.jpbestbuy;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = Utils.TAG + "(main)";
 
     Dialog addStoreDlg;
-    Dialog delStoreDlg;
+    Dialog addProductDlg;
 
     private ArrayList<String> storeArray;
     private SwipeListView mSwipeListView ;
@@ -42,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static int deviceWidth ;
     //private ArrayList<HashMap<String, String>> storeList;
 
-    private boolean getGPSService = false;
-    LocationManager locationManager;
-    private String bestProvider = LocationManager.GPS_PROVIDER;
+    View frameView;
 
 
     @Override
@@ -56,11 +56,94 @@ public class MainActivity extends AppCompatActivity {
         DB.initDatabase(this);
 
 	    /* put test data */
-	    if (noMockupInit()) {
-		    initMockupCase1();
+	    if (Mockup.noMockupInit(this)) {
+            Mockup.initMockupCase1(this);
 	    }
 
-        initSwipeListView();
+        initButton();
+        showStoreFrameView();
+        getLatlngFromAddr();
+    }
+
+    private void initButton() {
+        Button showStoreBtn = (Button)findViewById(R.id.button_store_list);
+        showStoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStoreFrameView();
+            }
+        });
+
+
+        Button showProductBtn = (Button)findViewById(R.id.button_product_list);
+        showProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProductFrameView();
+            }
+        });
+
+    }
+
+
+    public void showStoreFrameView(){
+
+        ViewGroup frameViewHolder = (ViewGroup)findViewById(R.id.main_frameLayout);
+        if (frameView != null) {
+            frameViewHolder.removeView(frameView);
+        }
+
+        frameView = getLayoutInflater().inflate(R.layout.activity_store_list, null);
+        frameViewHolder.addView(frameView);
+
+        initStoreListView();
+
+    }
+
+    public void showProductFrameView(){
+        ViewGroup frameViewHolder = (ViewGroup)findViewById(R.id.main_frameLayout);
+        if (frameView != null) {
+            frameViewHolder.removeView(frameView);
+        }
+
+        frameView = getLayoutInflater().inflate(R.layout.activity_product_list, null);
+        frameViewHolder.addView(frameView);
+
+        initProductListView();
+    }
+
+
+
+
+    private void initStoreListView() {
+        ArrayList<HashMap<String, String>> storeList = getStoreData();
+        mSwipeListView = (SwipeListView) frameView.findViewById(R.id.swipe_list_main);
+        mAdapter = new SwipeAdapter(this, R.layout.package_row, storeList, getStoreNameList(storeList), mSwipeListView);
+        mSwipeListView.setAdapter(mAdapter);
+        deviceWidth = Utils.getDeviceWidth(this);
+        mSwipeListView.setSwipeListViewListener(new TestBaseSwipeListViewListener());
+        mSwipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_RIGHT);
+        //mSwipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
+        mSwipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
+        //mSwipeListView.setOffsetLeft(deviceWidth * 1 / 3);
+        mSwipeListView.setOffsetRight(deviceWidth * 1 / 2);
+        //mSwipeListView.setAnimationTime(1);
+        mSwipeListView.setSwipeOpenOnLongPress(false);
+
+
+
+        Button addStoreBtn = new Button(this);
+        addStoreBtn.setText("+");
+        addStoreBtn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        addStoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addStoreDialog(v);
+            }
+        });
+        addStoreBtn.setBackgroundColor(Color.parseColor("#C7DFBA"));
+        mSwipeListView.addFooterView(addStoreBtn);
+
 
     }
 
@@ -76,26 +159,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d(TAG, "storeNameList:" + items.toString());
         return items;
-    }
-
-    private int getDeviceWidth() {
-        return getResources().getDisplayMetrics().widthPixels;
-    }
-
-    private void initSwipeListView() {
-        ArrayList<HashMap<String, String>> storeList = getStoreData();
-        mSwipeListView = (SwipeListView) findViewById(R.id.swipe_list_main);
-        mAdapter = new SwipeAdapter(this, R.layout.package_row, storeList, getStoreNameList(storeList), mSwipeListView);
-        mSwipeListView.setAdapter(mAdapter);
-        deviceWidth = getDeviceWidth();
-        mSwipeListView.setSwipeListViewListener(new TestBaseSwipeListViewListener());
-        mSwipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_LEFT);
-        mSwipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
-//                mSwipeListView.setSwipeActionRight(settings.getSwipeActionRight());
-        mSwipeListView.setOffsetLeft(deviceWidth * 1 / 3);
-//                mSwipeListView.setOffsetRight(convertDpToPixel(settings.getSwipeOffsetRight()));
-        //mSwipeListView.setAnimationTime(1);
-        mSwipeListView.setSwipeOpenOnLongPress(false);
     }
 
     private void updateSwipeData(){
@@ -133,54 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-	public boolean noMockupInit() {
-        /**
-         * if key "inited" exist in sharePreference,
-         * then return false.
-         * else return true.
-         */
-		String key = "mockup_inited";
-		SharedPreferences pref = getPreferences(MODE_PRIVATE);
-		return (!pref.getBoolean(key, false));
-
-	}
-
-    public void setPreference(String key, Boolean value) {
-	    Log.d(TAG, "setPreference");
-        SharedPreferences.Editor prefEditor = getPreferences(MODE_PRIVATE).edit();
-        prefEditor.putBoolean(key, value);
-        prefEditor.commit();
-
-    }
-
-
-	private void initMockupCase1() {
-		setPreference("mockup_inited", true);
-
-		DB.addProduct("Prodcut1", 5);
-		DB.addProduct("Prodcut2", 2);
-		DB.addProduct("Prodcut3", 1);
-		DB.addProduct("Prodcut4", 1);
-		DB.addProduct("Prodcut5", 5);
-
-		DB.addStore("OS drug", 5400, 8, "Null");
-		DB.addPrice(1, 1, 200);
-		DB.addPrice(1, 2, 200);
-		DB.addPrice(1, 3, 3000);
-		DB.addPrice(1, 4, 400);
-
-        String addr = Utils.getAddressFromLocation(this, Double.valueOf("25.0497191"), Double.valueOf("121.5747108"));
-        DB.addStore("Sun drug", 5400, 8, "25.0497191,121.5747108;"+addr);
-		DB.addPrice(2, 1, 150);
-		DB.addPrice(2, 2, 250);
-		DB.addPrice(2, 3, 3000);
-		DB.addPrice(2, 5, 550);
-        DB.addPrice(2, 4, 2400);
-
-	}
-
-
     public void addStoreDialog(View v){
 
         addStoreDlg = new Dialog(this);
@@ -216,22 +231,6 @@ public class MainActivity extends AppCompatActivity {
         addStoreDlg.show();
     }
 
-
-//    private Location getGPSLocation(){
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//            //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-//            Criteria criteria = new Criteria();	//資訊提供者選取標準
-//            bestProvider = locationManager.getBestProvider(criteria, true);
-//            Location location = locationManager.getLastKnownLocation(bestProvider);
-//            return location;
-//        } else {
-//            Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-//            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));	//開啟設定頁面
-//        }
-//        return null;
-//    }
-
     private Button.OnClickListener addStoreSaveOnClkLis = new Button.OnClickListener() {
         public void onClick(View v) {
             EditText newStoreName = (EditText) addStoreDlg.findViewById(R.id.editStoreName);
@@ -251,12 +250,77 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     public void goSelectStore(View v){
         Intent it = new Intent(MainActivity.this, SelectStoreToComputeActivity.class);
         startActivity(it);
     }
 
+
+    public void initProductListView() {
+        Log.d(TAG, "initProductListView()");
+
+        SwipeListView mSwipeListView = (SwipeListView) frameView.findViewById(R.id.swipe_listView_productlist);
+        Button addProductBtn = new Button(this);
+        addProductBtn.setText("+");
+        addProductBtn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        addProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addProductDialog();
+            }
+        });
+        addProductBtn.setBackgroundColor(Color.parseColor("#C7DFBA"));
+        mSwipeListView.addFooterView(addProductBtn);
+
+
+
+        int deviceWidth = getResources().getDisplayMetrics().widthPixels;
+        //mSwipeListView.setSwipeListViewListener(new TestBaseSwipeListViewListener());
+        mSwipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_RIGHT);
+        //mSwipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
+        mSwipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
+        mSwipeListView.setOffsetRight(deviceWidth * 1 / 3);
+//                mSwipeListView.setOffsetRight(convertDpToPixel(settings.getSwipeOffsetRight()));
+        //mSwipeListView.setAnimationTime(1);
+        mSwipeListView.setSwipeOpenOnLongPress(false);
+        updateShopList();
+
+    }
+
+    public void addProductDialog(){
+        addProductDlg = new Dialog(this);
+        addProductDlg.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        addProductDlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        addProductDlg.setContentView(R.layout.dialog_add_product);
+
+        Button btnCancel = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductCancel);
+        btnCancel.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                addProductDlg.cancel();
+            }
+        });
+
+        Button btnSave = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductSave);
+        btnSave.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                EditText newProduct = (EditText) addProductDlg.findViewById(R.id.et_addProductName);
+                String pName = newProduct.getText().toString();
+                EditText newAmount = (EditText) addProductDlg.findViewById(R.id.et_addProductAmount);
+                Integer pAmount = Integer.valueOf(newAmount.getText().toString());
+                DB.addProduct(pName, pAmount);
+                Log.d(TAG, "Add new product: " + pName);
+                updateShopList();
+                addProductDlg.cancel();
+            }
+        });
+        addProductDlg.show();
+    }
+
+    private void updateShopList() {
+        SwipeListView mSwipeListView = (SwipeListView) frameView.findViewById(R.id.swipe_listView_productlist);
+        Cursor c = DB.getAllProduct();
+        mSwipeListView.setAdapter(new ShopListAdapter(this, c));
+    }
 
 
     @Override
@@ -287,11 +351,6 @@ public class MainActivity extends AppCompatActivity {
                 it = new Intent(this, MapsActivity.class);
                 startActivity(it);
                 break;
-            case R.id.menu_shoplist:
-                Log.d(TAG, "select menu item: Shopping List");
-                it = new Intent(this, ShopListActivity.class);
-                startActivity(it);
-                break;
 
         }
 
@@ -304,12 +363,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void cleanMockupCase(){
-        Log.d(TAG,"clean SQL and SharedPreferences data of MockupCase");
-        SharedPreferences.Editor prefEditor = getPreferences(MODE_PRIVATE).edit();
-        prefEditor.clear();
-        prefEditor.commit();
-    }
+
 
     @Override
     public void onDestroy(){
@@ -318,5 +372,28 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+
+    private void getLatlngFromAddr(){
+
+        int[] src  = {
+                R.array.store_matsukiyo
+        };
+
+        for (int res:src){
+            String[] mStoreArray = getResources().getStringArray(res);
+            String out="";
+            for (String s: mStoreArray){
+                if (s.contains("#")){
+                    String[] sInfo = s.split("#");
+                    String name = sInfo[0];
+                    String addr = sInfo[1];
+                    Double[] latlng = Utils.getLatLngFromAddr(this, addr);
+                    out += "<item>"+latlng[0]+","+latlng[1]+"@"+name+"@"+addr+"</item>";
+                }
+            }
+            Log.d(TAG,out);
+        }
+
+    }
 
 }

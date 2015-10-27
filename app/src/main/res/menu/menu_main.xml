@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/menu_main"
           android:title="Store List" />
-    <item android:id="@+id/menu_shoplist"
-          android:title="Shopping List" />
     <item android:id="@+id/menu_map"
           android:title="Store Map" />
     <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->

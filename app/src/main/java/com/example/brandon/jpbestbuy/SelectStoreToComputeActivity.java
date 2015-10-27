@@ -132,11 +132,6 @@ public class SelectStoreToComputeActivity extends AppCompatActivity {
                 it = new Intent(this, MapsActivity.class);
                 startActivity(it);
                 break;
-            case R.id.menu_shoplist:
-                Log.d(TAG, "select menu item: Shopping List");
-                it = new Intent(this, ShopListActivity.class);
-                startActivity(it);
-                break;
 
         }
 

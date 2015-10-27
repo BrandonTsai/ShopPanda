@@ -26,16 +26,12 @@ public class AddStoreProduct extends AppCompatActivity {
 
     private int storeID;
     private Spinner spnProductList;
-	//ArrayList<String> productList;
+    //ArrayList<HashMap<String, String>> productInfo;
 
     Dialog addProductDlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Intent it = getIntent();
-        //storeID = it.getIntExtra("SID", 0);
-        //Log.d(sCursor, "Add product to stroe:" + storeID);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_store_product);
@@ -58,7 +54,8 @@ public class AddStoreProduct extends AppCompatActivity {
                 // get product id
                 Spinner spnProductList = (Spinner) findViewById(R.id.spn_product_list);
                 Integer pid = spnProductList.getSelectedItemPosition();
-                Log.d(TAG, "select:" + pid);
+                //Integer pid = Integer.valueOf(productInfo.get(pos).get("_id"));
+                //Log.d(TAG, "select:" + pid);
 
                 //get price
                 EditText editPrice = (EditText) findViewById(R.id.editProductPrice);
@@ -101,6 +98,7 @@ public class AddStoreProduct extends AppCompatActivity {
         spnProductList.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapterView, View view, int position, long id) {
                 Cursor pCursor = DB.getAllProduct();
+                //productInfo = Utils.cur2ArrayList(pCursor);
                 ArrayList<String> productList = getProductList(pCursor);
                 //Log.d(sCursor, "(Spinner) selected: " + position + "/" + productList.size());
                 Integer pListSize = new Integer(productList.size());
@@ -119,6 +117,7 @@ public class AddStoreProduct extends AppCompatActivity {
     private void updateSpinnerProductList(boolean selectNewItem){
         spnProductList = (Spinner) findViewById(R.id.spn_product_list);
         Cursor pCursor= DB.getAllProduct();
+        //productInfo = Utils.cur2ArrayList(pCursor);
         ArrayList<String> productList = getProductList(pCursor);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.spinner_adapter_product_list, R.id.text, productList);
         spnProductList.setAdapter(adapter);
@@ -203,11 +202,7 @@ public class AddStoreProduct extends AppCompatActivity {
                 it = new Intent(this, MapsActivity.class);
                 startActivity(it);
                 break;
-            case R.id.menu_shoplist:
-                Log.d(TAG, "select menu item: Shopping List");
-                it = new Intent(this, ShopListActivity.class);
-                startActivity(it);
-                break;
+
 
         }
 
