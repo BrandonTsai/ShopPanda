@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
     private void getLatlngFromAddr(){
 
         int[] src  = {
-                R.array.store_matsukiyo
+                R.array.store_sembikiya
         };
 
         for (int res:src){

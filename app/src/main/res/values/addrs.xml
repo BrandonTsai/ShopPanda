@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="map_spinner_category">
-        <item>Drug Store</item>
-        <item>Super Market</item>
-        <item>Electronics Store</item>
-        <item>Clothes</item>
-    </string-array>
+    <!--<string-array name="map_spinner_category">-->
+        <!--<item>All</item>-->
+        <!--<item>Food</item>-->
+        <!--<item>Clothes</item>-->
+        <!--<item>輕井澤 Karuizawa</item>-->
+    <!--</string-array>-->
 
     <!-- Drug Stores -->
     <string-array name="store_matsukiyo">
@@ -26,20 +26,31 @@
 
 
 
-    <!-- Super Markets -->
+    <!-- Food -->
+    <string-array name="store_sembikiya">
+        <item>35.6869347,139.7733858@千疋屋 日本橋本店@〒103-0022 東京都中央区日本橋室町2-1-2</item>
+        <item>35.6147765,139.6268262@千疋屋 玉川高島屋店@〒158-0094 東京都世田谷区玉川3-17-1</item>
+        <item>35.6801423,139.7201511@千疋屋 アトレヴィ信濃町店@東京都新宿区信濃町34</item>
+        <item>35.6859688,139.7024831@千疋屋 新宿高島屋店@〒151-8580 東京都渋谷区千駄ヶ谷5-24-2</item>
+        <item>35.7285729,139.7117442@千疋屋 池袋西武店@〒171-0022 東京都豊島区南池袋1-28-1</item>
+        <item>35.6916376,139.704616@千疋屋 新宿伊勢丹店@〒160-0022 東京都新宿区新宿3-14-1</item>
+        <item>35.6798409,139.7650921@千疋屋 KITTE丸の内店@〒100-7001 東京都千代田区丸の内2-7-2</item>
+        <item>35.6713225,139.7658367@千疋屋 銀座三越店@〒104-8212 東京都中央区銀座4-6-16</item>
+        <item>35.6722557,139.7666978@千疋屋 松屋銀座店@〒104-8130 東京都中央区銀座3-6-1</item>
+        <item>35.680669,139.773697@千疋屋 日本橋高島屋店@〒103-0027 東京都中央区日本橋２丁目４−１</item>
+        <item>35.680614,139.766623@千疋屋 東京駅銘品館店@〒100-0005 東京都千代田区丸の内一丁目</item>
+    </string-array>
 
-
-    <!-- Electronics Store -->
 
 
 
     <!-- Clothes -->
     <string-array name="store_abc_mark">
-        <item>#</item>
+        <!--<item>#</item>-->
     </string-array>
 
     <string-array name="store_skechers">
-        <item>#</item>
+        <!--<item>#</item>-->
     </string-array>
 
 
@@ -53,8 +64,31 @@
 
 
     <!-- Mountain Fuji -->
-    <string-array name="hotspot_fuji">
-        <item>#</item>
+    <string-array name="hotspot_karuizawa_food">
+        <item>36.359121,138.636500@淺野屋Asanoya麵包 @Null</item>
+        <item>36.357358,138.634848@PAOMU布丁 @Null</item>
+        <item>36.358410,138.636825@ 澤屋/沢屋果醬@Null</item>
+        <item>36.362136,138.589175@村民食堂 @Null</item>
+        <item>36.342578,138.621414@丸山咖啡 @Null</item>
+        <item>36.358778,138.590351@丸山咖啡 星野溫泉店 @Null</item>
+        <item>36.356255,138.633812@川上庵蕎麥麵 @Null</item>
+        <item>36.350344,138.594009@ろぐ亭燒肉 @Null</item>
+        <item>36.359107,138.634858@Cerfeuil，果醬 @Null</item>
+
+    </string-array>
+
+    <string-array name="hotspot_karuizawa_attractions">
+        <item>36.350459,138.627008@ 雲場池 @Null</item>
+        <item>36.341253,138.632803@Princess Outlet @Null</item>
+        <!--<item>日本〒389-0102 長野県北佐久郡軽井沢町軽井沢旧軽井沢８０９@ 旧軽井沢森ノ美術館@Null</item>-->
+        <item>36.359065,138.634905@教堂商店街 @Null</item>
+        <item>36.359738,138.634031@聖保羅教堂 @Null</item>
+        <item>36.358047,138.590809@星野度假村 @Null</item>
+        <item>36.356241,138.587140@石之教堂 @Null</item>
+        <item>36.358044,138.590758@ 虹夕諾雅@Null</item>
+        <item>36.373210,138.626264@舊三笠飯店 @Null</item>
+        <item>36.358134,138.589447@高原教會 @Null</item>
+
     </string-array>
 
 </resources>

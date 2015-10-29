@@ -17,7 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:id="@+id/map_spinner_category"
-            android:entries="@array/map_spinner_category"/>
+            />
 
         <Spinner
             android:layout_width="300dp"
