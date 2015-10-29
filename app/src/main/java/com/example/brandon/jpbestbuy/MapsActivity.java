@@ -181,17 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             float color = getStoreMarkColor(storesResID);
 
             for (String storeInfo:getResources().getStringArray(storesResID)){
-                String[] sInfo = storeInfo.split("@");
-                String[] latlng = sInfo[0].split(",");
-                String name = sInfo[1];
-                String addr = sInfo[2];
-                HashMap<String, String> store = new HashMap<>();
-                store.put("name", name);
-                store.put("lat", latlng[0]);
-                store.put("lng", latlng[1]);
-                store.put("color", String.valueOf(color));
-                stores.add(store);
-                Log.d(TAG, "mark:" + name);
+                stores.add(formateStoreInfo(storeInfo, color));
             }
         }
         return stores;
@@ -231,17 +221,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             float color = getStoreMarkColor(storesResID);
 
             for (String storeInfo:getResources().getStringArray(storesResID)){
-                String[] sInfo = storeInfo.split("@");
-                String[] latlng = sInfo[0].split(",");
-                String name = sInfo[1];
-                String addr = sInfo[2];
-                HashMap<String, String> store = new HashMap<>();
-                store.put("name", name);
-                store.put("lat", latlng[0]);
-                store.put("lng", latlng[1]);
-                store.put("color", String.valueOf(color));
-                stores.add(store);
-                Log.d(TAG, "mark:" + name);
+                stores.add(formateStoreInfo(storeInfo, color));
             }
         }
         return stores;
@@ -259,17 +239,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ArrayList<HashMap<String, String>> stores = new ArrayList<>();
         for (String storeInfo:getResources().getStringArray(storesResID)){
-            String[] sInfo = storeInfo.split("@");
-            String[] latlng = sInfo[0].split(",");
-            String name = sInfo[1];
-            String addr = sInfo[2];
-            HashMap<String, String> store = new HashMap<>();
-            store.put("name", name);
-            store.put("lat", latlng[0]);
-            store.put("lng", latlng[1]);
-            store.put("color", String.valueOf(color));
-            stores.add(store);
-            Log.d(TAG, "mark:" + name);
+            stores.add(formateStoreInfo(storeInfo, color));
         }
 
 
@@ -282,22 +252,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int storesResID: storeResIds.get(position).values()){
             float color = getStoreMarkColor(storesResID);
 
-            for (String storeInfo:getResources().getStringArray(storesResID)){
-                Log.d(TAG, "storeInfo:" +storeInfo);
-                String[] sInfo = storeInfo.split("@");
-                String[] latlng = sInfo[0].split(",");
-                String name = sInfo[1];
-                String addr = sInfo[2];
-                HashMap<String, String> store = new HashMap<>();
-                store.put("name", name);
-                store.put("lat", latlng[0]);
-                store.put("lng", latlng[1]);
-                store.put("color", String.valueOf(color));
-                stores.add(store);
+            for (String storeInfo:getResources().getStringArray(storesResID)) {
+                stores.add(formateStoreInfo(storeInfo, color));
             }
 
         }
         return stores;
+    }
+
+    private HashMap<String, String> formateStoreInfo(String storeInfo, Float color){
+        Log.d(TAG, "storeInfo:" +storeInfo);
+        String[] sInfo = storeInfo.split("@");
+        String[] latlng = sInfo[0].split(",");
+        HashMap<String, String> store = new HashMap<>();
+        store.put("name", sInfo[1]);
+        store.put("addr", sInfo[2]);
+        store.put("lat", latlng[0]);
+        store.put("lng", latlng[1]);
+        store.put("color", String.valueOf(color));
+        return store;
     }
 
     private float getStoreMarkColor(Integer storesResID){
@@ -316,14 +289,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear();
         for (HashMap<String,String> s:stores){
             String name = s.get("name");
+            String addr = s.get("addr");
             Double lat = Double.valueOf(s.get("lat"));
             Double lng = Double.valueOf(s.get("lng"));
             LatLng storeLatlng = new LatLng(lat,lng);
             Float color = Float.valueOf(s.get("color"));
 
-            mMap.addMarker(new MarkerOptions().position(storeLatlng).title(name)
+            mMap.addMarker(new MarkerOptions().position(storeLatlng).title(name).snippet(addr)
                     .icon(BitmapDescriptorFactory.defaultMarker(color)));
-            Log.d(TAG, "mMap+:" + name);
+            Log.d(TAG, "mMap+:" + s.toString());
         }
     }
 
