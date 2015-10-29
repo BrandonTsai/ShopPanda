@@ -75,7 +75,7 @@ public class ExpandableStoreListAdapter extends BaseExpandableListAdapter {
         Store s = shopList.get(groupPosition);
         LinearLayout ll = new LinearLayout(mContext);
         ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setBackgroundColor(Color.parseColor("#ccddff"));
+        ll.setBackgroundColor(Color.parseColor("#C7DFBA"));
         ll.setPadding(50, 10, 10, 10);
 
         LinearLayout mainLyaout = new LinearLayout(mContext);

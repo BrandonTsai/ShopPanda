@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -47,6 +48,10 @@ public class BestShopResult extends AppCompatActivity {
         for ( int i = 0; i < shopList.size(); i++ ) {
             elv.expandGroup(i);
         }
+    }
+
+    public void returnToPreActivity(View v){
+        this.finish();
     }
 
     @Override

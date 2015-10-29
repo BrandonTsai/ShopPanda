@@ -87,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void showStoreFrameView(){
+        Button showStoreBtn = (Button)findViewById(R.id.button_store_list);
+        showStoreBtn.setBackgroundColor(Color.parseColor("#efeded"));
+        showStoreBtn.setTextColor(Color.parseColor("#279a42"));
+        Button showProductBtn = (Button)findViewById(R.id.button_product_list);
+        showProductBtn.setBackgroundColor(Color.LTGRAY);
+        showProductBtn.setTextColor(Color.BLACK);
 
         ViewGroup frameViewHolder = (ViewGroup)findViewById(R.id.main_frameLayout);
         if (frameView != null) {
@@ -101,6 +107,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showProductFrameView(){
+        Button showStoreBtn = (Button)findViewById(R.id.button_store_list);
+        showStoreBtn.setBackgroundColor(Color.LTGRAY);
+        showStoreBtn.setTextColor(Color.BLACK);
+        Button showProductBtn = (Button)findViewById(R.id.button_product_list);
+        showProductBtn.setBackgroundColor(Color.parseColor("#efeded"));
+        showProductBtn.setTextColor(Color.parseColor("#279a42"));
+
         ViewGroup frameViewHolder = (ViewGroup)findViewById(R.id.main_frameLayout);
         if (frameView != null) {
             frameViewHolder.removeView(frameView);

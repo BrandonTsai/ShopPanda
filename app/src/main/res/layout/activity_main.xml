@@ -9,54 +9,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:background="#efeded">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="15dp">
+            android:background="@android:color/white">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Store List"
-                android:id="@+id/button_store_list"
-                android:nestedScrollingEnabled="false"
-                android:textSize="20dp"
-                />
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="bottom">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shop List"
-                android:id="@+id/button_product_list"
-                android:nestedScrollingEnabled="false"
-                android:textSize="20dp"
-                />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Store List"
+                    android:id="@+id/button_store_list"
+                    android:nestedScrollingEnabled="false"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"/>
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Shop List"
+                    android:id="@+id/button_product_list"
+                    android:nestedScrollingEnabled="false"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Compute"
-                android:id="@+id/ComputeBestResult"
-                android:onClick="goSelectStore"
-                android:nestedScrollingEnabled="false"
-                android:textColor="@android:color/holo_orange_dark"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/ComputeBestResult"
+                    android:onClick="goSelectStore"
+                    android:nestedScrollingEnabled="false"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="20dp"
+                    android:padding="15dp"
+                    android:background="@drawable/checkout"
+                    android:outlineProvider="bounds"/>
+            </LinearLayout>
 
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/main_frameLayout">
+            android:id="@+id/main_frameLayout"
+            android:layout_margin="10dp"
+            android:focusableInTouchMode="false">
         </FrameLayout>
 
         <!--<ListView-->
