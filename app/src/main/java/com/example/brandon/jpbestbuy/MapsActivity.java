@@ -38,7 +38,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public int[] foodStoresResID = {
             R.array.hotspot_karuizawa_food,
-            R.array.store_sembikiya
+            R.array.store_sembikiya,
+            R.array.store_fruit_ice,
+            R.array.store_toast
+    };
+
+    public int[] clothStoresResID = {
+            R.array.store_miia,
+            R.array.store_skechers
     };
 
 
@@ -72,12 +79,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        storeResIds.add(drugStoresResIds);
 
         LinkedHashMap<String, Integer> foodStoresResIds = new LinkedHashMap<>();
-        foodStoresResIds.put("千疋屋", R.array.store_sembikiya);
+        foodStoresResIds.put("鮮果甜品店 千疋屋", R.array.store_sembikiya);
+        foodStoresResIds.put("鮮果甜品店", R.array.store_fruit_ice);
+        foodStoresResIds.put("吐司", R.array.store_toast);
+
         storeResIds.add(foodStoresResIds);
 
 
         LinkedHashMap<String, Integer> clothesStoresResIds = new LinkedHashMap<>();
         clothesStoresResIds.put("MIIA", R.array.store_miia);
+        clothesStoresResIds.put("Skechers", R.array.store_skechers);
         storeResIds.add(clothesStoresResIds);
 
         LinkedHashMap<String, Integer> karuizawaResIds = new LinkedHashMap<>();
@@ -279,6 +290,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return BitmapDescriptorFactory.HUE_ROSE;
             }
         }
+        for (Integer id: clothStoresResID){
+            if (id.equals(storesResID)){
+                return BitmapDescriptorFactory.HUE_VIOLET;
+            }
+        }
+
 
         return BitmapDescriptorFactory.HUE_RED;
     }
