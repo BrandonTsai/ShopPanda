@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         initButton();
         showStoreFrameView();
-        getLatlngFromAddr();
+        //getLatlngFromAddr();
     }
 
     private void initButton() {
@@ -389,7 +389,12 @@ public class MainActivity extends AppCompatActivity {
     private void getLatlngFromAddr(){
 
         int[] src  = {
-                R.array.store_toast
+////                R.array.store_curry,
+////                R.array.store_noodle,
+//                R.array.store_pancake,
+//                R.array.store_toast,
+//                R.array.store_shop_stores
+////                R.array.hotspots
         };
 
         for (int res:src){
@@ -397,6 +402,7 @@ public class MainActivity extends AppCompatActivity {
             String out="";
             for (String s: mStoreArray){
                 if (s.contains("#")){
+                    Log.d(TAG,">>"+s);
                     String[] sInfo = s.split("#");
                     String name = sInfo[0];
                     String addr = sInfo[1];

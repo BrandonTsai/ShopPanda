@@ -31,6 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public String[] categoryArray = {
             "All",
+            "景點",
             "Food",
             "Cloth",
             "輕井澤 Karuizawa"
@@ -38,14 +39,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public int[] foodStoresResID = {
             R.array.hotspot_karuizawa_food,
-            R.array.store_sembikiya,
             R.array.store_fruit_ice,
-            R.array.store_toast
+            R.array.store_toast,
+            R.array.store_pancake,
+            R.array.store_noodle,
+            R.array.store_curry
     };
 
     public int[] clothStoresResID = {
             R.array.store_miia,
-            R.array.store_skechers
+            R.array.store_skechers,
+            R.array.store_shop_stores
     };
 
 
@@ -78,17 +82,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        drugStoresResIds.put("マツモトキヨシ(松本清)", R.array.store_matsukiyo);
 //        storeResIds.add(drugStoresResIds);
 
+        LinkedHashMap<String, Integer> hotspotResIds = new LinkedHashMap<>();
+        hotspotResIds.put("景點", R.array.hotspots);
+
+        storeResIds.add(hotspotResIds);
+
         LinkedHashMap<String, Integer> foodStoresResIds = new LinkedHashMap<>();
-        foodStoresResIds.put("鮮果甜品店 千疋屋", R.array.store_sembikiya);
         foodStoresResIds.put("鮮果甜品店", R.array.store_fruit_ice);
         foodStoresResIds.put("吐司", R.array.store_toast);
-
+        foodStoresResIds.put("鬆餅", R.array.store_pancake);
+        foodStoresResIds.put("咖哩", R.array.store_curry);
+        foodStoresResIds.put("拉麵", R.array.store_noodle);
         storeResIds.add(foodStoresResIds);
 
 
         LinkedHashMap<String, Integer> clothesStoresResIds = new LinkedHashMap<>();
         clothesStoresResIds.put("MIIA", R.array.store_miia);
         clothesStoresResIds.put("Skechers", R.array.store_skechers);
+        clothesStoresResIds.put("Others", R.array.store_shop_stores);
         storeResIds.add(clothesStoresResIds);
 
         LinkedHashMap<String, Integer> karuizawaResIds = new LinkedHashMap<>();
