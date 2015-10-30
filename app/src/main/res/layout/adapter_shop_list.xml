@@ -8,35 +8,30 @@
     <LinearLayout
         android:id="@+id/back"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="250dp"
         android:tag="back"
         android:background="#eee"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="30dp">
 
         <Button
             android:id="@+id/btn_shoplist_bought"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="60dp"
             android:text="Bought"
-            android:layout_gravity="center"
-            android:layout_weight="1" />
+            android:layout_marginBottom="20dp"
+            />
 
         <Button
             android:id="@+id/btn_shoplist_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:text="Edit"
-            android:layout_gravity="center"
             android:layout_height="60dp"
-            android:layout_weight="1" />
+            />
 
-        <Button
-            android:id="@+id/btn_shoplist_nouse"
-            android:layout_width="wrap_content"
-            android:background="@null"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
     </LinearLayout>
 
 
@@ -47,35 +42,42 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+        android:visibility="visible"
+        >
 
+        <ImageView
+            android:layout_width="450dp"
+            android:layout_height="250dp"
+            android:id="@+id/imageView_shoplist_product_image"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/no_image_available"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"/>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-
-                <ImageView
-                    android:layout_width="350dp"
-                    android:layout_height="350dp"
-                    android:id="@+id/imageView_shoplist_product_image"
-                    android:layout_gravity="center_horizontal"
-                    android:visibility="gone"/>
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:background="#99ffffff"
+            android:id="@+id/layout_pro_info"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            >
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
@@ -98,10 +100,11 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
@@ -119,11 +122,12 @@
                     android:textSize="20dp"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
+
         </LinearLayout>
 
+
+
     </RelativeLayout>
-
-
 
 
 </FrameLayout>

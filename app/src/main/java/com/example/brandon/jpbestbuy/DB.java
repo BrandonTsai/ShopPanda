@@ -49,6 +49,7 @@ public class DB{
                     + "_id INTEGER PRIMARY KEY autoincrement,"
                     + "NAME TEXT,"
                     + "AMOUNT INTEGER,"
+                    + "IMAGEPATH TEXT,"
                     + "BOUGHT INTEGER"
                     + ");");
 
@@ -115,7 +116,7 @@ public class DB{
     Product Table
      */
     public static Cursor getAllProduct() {
-        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT"}, null,
+        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT", "IMAGEPATH"}, null,
                 null, null, null, null);
 
         return cursor;
@@ -123,7 +124,7 @@ public class DB{
 
     public static Cursor getAllNotBoughtProduct() {
         String selection = "BOUGHT=0";
-        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT"}, selection,
+        Cursor cursor = db.query("products", new String[]{"_id", "NAME", "AMOUNT", "BOUGHT", "IMAGEPATH"}, selection,
                 null, null, null, null);
 
         return cursor;
@@ -131,7 +132,7 @@ public class DB{
 
 
     public static HashMap<String,String> getProduct(Integer pid) {
-        Cursor cursor = db.query("products", new String[] { "_id", "NAME", "AMOUNT", "BOUGHT" }, "_id="+pid,
+        Cursor cursor = db.query("products", new String[] { "_id", "NAME", "AMOUNT", "BOUGHT", "IMAGEPATH" }, "_id="+pid,
                 null, null, null, null);
         ArrayList<HashMap<String,String>> pInfo = Utils.cur2ArrayList(cursor);
         Log.d(TAG, "get product:" + pInfo.toString());
@@ -141,13 +142,33 @@ public class DB{
     public static void addProduct(String name, int amount) {
         Log.d(TAG, "add product:" + name);
 
-        ContentValues cv=new ContentValues(3);
+        ContentValues cv=new ContentValues(4);
 
         cv.put("NAME", name);
         cv.put("AMOUNT", amount);
         cv.put("BOUGHT", 0);
+        cv.put("IMAGEPATH", "");
+
 
         db.insert("products", null, cv);
+    }
+
+    public static void addProduct(String name, int amount, String imagePath) {
+        Log.d(TAG, "add product:" + name);
+
+        if (null == imagePath){
+            addProduct(name, amount);
+        }
+        else {
+            ContentValues cv = new ContentValues(4);
+
+            cv.put("NAME", name);
+            cv.put("AMOUNT", amount);
+            cv.put("BOUGHT", 0);
+            cv.put("IMAGEPATH", imagePath);
+
+            db.insert("products", null, cv);
+        }
     }
 
     public static void setProductIsBought(int id) {

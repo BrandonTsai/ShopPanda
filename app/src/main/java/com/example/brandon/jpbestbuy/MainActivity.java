@@ -276,10 +276,17 @@ public class MainActivity extends AppCompatActivity {
         Button addProductBtn = new Button(this);
         addProductBtn.setText("+");
         addProductBtn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+//        addProductBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addProductDialog();
+//            }
+//        });
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addProductDialog();
+                Intent it = new Intent(MainActivity.this, AddNewProductActivity.class);
+                startActivityForResult(it, 2015);
             }
         });
         addProductBtn.setBackgroundColor(Color.parseColor("#C7DFBA"));
@@ -292,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
         mSwipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_RIGHT);
         //mSwipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
         mSwipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
-        mSwipeListView.setOffsetRight(deviceWidth * 1 / 3);
+        mSwipeListView.setOffsetRight(deviceWidth * 1 / 2);
 //                mSwipeListView.setOffsetRight(convertDpToPixel(settings.getSwipeOffsetRight()));
         //mSwipeListView.setAnimationTime(1);
         mSwipeListView.setSwipeOpenOnLongPress(false);
@@ -414,6 +421,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG,out);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 2015 ) {
+            updateShopList();
+            Log.d(TAG,"Success Result!");
+        }
     }
 
 }

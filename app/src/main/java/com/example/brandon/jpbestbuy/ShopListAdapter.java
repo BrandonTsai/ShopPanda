@@ -3,7 +3,9 @@ package com.example.brandon.jpbestbuy;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ExifInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 /**
  * Created by Brandon on 15/6/28.
@@ -46,6 +51,27 @@ public class ShopListAdapter extends CursorAdapter {
         final String name = cursor.getString(cursor.getColumnIndexOrThrow("NAME"));
         final int amount = cursor.getInt(cursor.getColumnIndexOrThrow("AMOUNT"));
         final boolean bought = (cursor.getInt(cursor.getColumnIndexOrThrow("BOUGHT")) != 0);
+        final String imagePath = cursor.getString(cursor.getColumnIndexOrThrow("IMAGEPATH"));
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageView_shoplist_product_image);
+        if (imagePath.isEmpty()){
+            imageView.setRotation(0);
+            imageView.setImageResource(R.drawable.no_image_available);
+        }else {
+            ExifInterface exif = null;
+            try {
+                exif = new ExifInterface(imagePath);
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                Log.d(TAG, name+" Exif: " + orientation);
+                if (orientation == 6) {
+                    imageView.setRotation(90);
+                } else {
+                    imageView.setRotation(0);
+                }
+                imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         // Populate fields with extracted properties
         tvName.setText(name);
