@@ -362,6 +362,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_map:
                 Log.d(TAG, "select menu item: Maps");
                 it = new Intent(this, MapsActivity.class);
+//                it = new Intent(this, MapsActivity.class);
                 startActivity(it);
                 break;
 

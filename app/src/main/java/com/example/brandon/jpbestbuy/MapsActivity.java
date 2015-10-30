@@ -14,6 +14,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -27,7 +29,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //private LatLng currentLatLng;
     private int currentCategory = 0;
     public ArrayList<LinkedHashMap<String, Integer>> storeResIds;
-
+    private ArrayList<HashMap<String, String>> selectedStores;
+    private Marker lastOpenned = null;
 
     public String[] categoryArray = {
             "All",
@@ -72,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
     }
 
 
@@ -83,7 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        storeResIds.add(drugStoresResIds);
 
         LinkedHashMap<String, Integer> hotspotResIds = new LinkedHashMap<>();
-        hotspotResIds.put("景點", R.array.hotspots);
+        hotspotResIds.put("其他", R.array.hotspots);
+        hotspotResIds.put("楓葉", R.array.hotspots_maple_leaf);
 
         storeResIds.add(hotspotResIds);
 
@@ -313,6 +318,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private void updateMapMarker(ArrayList<HashMap<String, String>> stores) {
+        selectedStores = stores;
 
         mMap.clear();
         for (HashMap<String,String> s:stores){
@@ -323,9 +329,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng storeLatlng = new LatLng(lat,lng);
             Float color = Float.valueOf(s.get("color"));
 
+
             mMap.addMarker(new MarkerOptions().position(storeLatlng).title(name).snippet(addr)
-                    .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(color)));
+
             Log.d(TAG, "mMap+:" + s.toString());
+        }
+    }
+
+    private void updateMapMarker() {
+        LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+
+        mMap.clear();
+        for (HashMap<String,String> s:selectedStores){
+            String name = s.get("name");
+            String addr = s.get("addr");
+            Double lat = Double.valueOf(s.get("lat"));
+            Double lng = Double.valueOf(s.get("lng"));
+            LatLng storeLatlng = new LatLng(lat,lng);
+            Float color = Float.valueOf(s.get("color"));
+
+            if (bounds.contains(storeLatlng)) {
+                mMap.addMarker(new MarkerOptions().position(storeLatlng).title(name).snippet(addr)
+                        .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                Log.d(TAG, "mMap+:" + s.toString());
+            }
+
         }
     }
 
@@ -346,20 +375,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
 
         mMap.clear();
-        LatLng tokeyTower = new LatLng(35.658554, 139.745572);
+        final LatLng tokeyTower = new LatLng(35.658554, 139.745572);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokeyTower, 13));
         mMap.setMyLocationEnabled(true);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            public boolean onMarkerClick(Marker marker) {
+                // Check if there is an open info window
+                if (lastOpenned != null) {
+                    // Close the info window
+                    lastOpenned.hideInfoWindow();
+
+                    // Is the marker the same marker that was already open
+                    if (lastOpenned.equals(marker)) {
+                        // Nullify the lastOpenned object
+                        lastOpenned = null;
+                        // Return so that the info window isn't openned again
+                        return true;
+                    }
+                }
+
+                // Open the info window for the marker
+                marker.showInfoWindow();
+                // Re-assign the last openned such that we can close it later
+                lastOpenned = marker;
+
+                // Event was handled by our code do not launch default behaviour.
+                return true;
+            }
+        });
+
+//        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+//            @Override
+//            public void onCameraChange(CameraPosition position) {
+//                updateMapMarker();
+//                //fetchData(bounds);
+//            }
+//        });
 
     }
 
 
-    //    private void get_current_location() {
-//        Location location = Utils.getGPSLocation((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//        if (location != null){
-//            currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-//        }else {
-//            //default sydney.
-//            currentLatLng = new LatLng(-34, 151);
-//        }
-//    }
 }

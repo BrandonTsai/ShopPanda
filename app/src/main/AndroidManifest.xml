@@ -22,7 +22,6 @@
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,13 +57,20 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="-----------------------------------------------" />
+            android:value="----------------------------------------" />
 
         <activity
             android:name=".MapsActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:label="@string/title_activity_maps" >
         </activity>
+
+        <activity android:name="com.example.brandon.jpbestbuy.TestMapsActivity"
+                  android:label="@string/title_activity_test_maps">
+
+        </activity>
     </application>
 
 </manifest>
+
+

@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Shop Panda</string>
-    <string name="add_store">Add Store</string>
+    <string name="app_name">露買露俗</string>
+    <string name="add_store">新增商店</string>
     <string name="DB">BestBuy</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_edit_store">StoreInfo</string>
-    <string name="title_activity_add_product">AddProduct</string>
-    <string name="title_activity_edit_store_product">EditStoreProduct</string>
+    <string name="action_settings">設定</string>
+    <string name="title_activity_edit_store">店舖資訊</string>
+    <string name="title_activity_add_product">新增商品</string>
+    <string name="title_activity_edit_store_product">修改店舖商品價錢</string>
     <string-array name="tax_list">
-        <item>No Tax</item>
-        <item>Include Tax</item>
+        <item>不含稅</item>
+        <item>含稅</item>
     </string-array>
 
     <!--<string-array name="product_list">-->
@@ -17,11 +17,11 @@
     <!--</string-array>-->
 
     <string-array name="product_status">
-        <item>Not bought yet</item>
-        <item>Bought</item>
+        <item>未購買</item>
+        <item>已購買</item>
     </string-array>
 
-    <string name="title_activity_compute_best_buy2">Compute Result</string>
+    <string name="title_activity_compute_best_buy2">計算結果</string>
 
     <string-array name="listview1_spinner1">
         <item>Food</item>
