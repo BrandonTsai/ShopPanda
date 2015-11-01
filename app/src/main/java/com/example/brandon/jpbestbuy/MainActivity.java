@@ -397,12 +397,7 @@ public class MainActivity extends AppCompatActivity {
     private void getLatlngFromAddr(){
 
         int[] src  = {
-////                R.array.store_curry,
-////                R.array.store_noodle,
-//                R.array.store_pancake,
-//                R.array.store_toast,
-//                R.array.store_shop_stores
-////                R.array.hotspots
+                R.array.store_shop_stores
         };
 
         for (int res:src){

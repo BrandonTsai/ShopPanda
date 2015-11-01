@@ -46,13 +46,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             R.array.store_toast,
             R.array.store_pancake,
             R.array.store_noodle,
-            R.array.store_curry
+            R.array.store_curry,
+            R.array.stores_quil_fait_bon,
+            R.array.store_other_foods,
+            R.array.hotspot_kichijoji_food
     };
 
     public int[] clothStoresResID = {
             R.array.store_miia,
             R.array.store_skechers,
-            R.array.store_shop_stores
+            R.array.store_shop_stores,
+            R.array.store_31_sons_de_mode,
+            R.array.store_coco_deal
     };
 
 
@@ -88,6 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LinkedHashMap<String, Integer> hotspotResIds = new LinkedHashMap<>();
         hotspotResIds.put("其他", R.array.hotspots);
+        hotspotResIds.put("Bicycle", R.array.hotspots_bicycle);
         hotspotResIds.put("楓葉", R.array.hotspots_maple_leaf);
 
         storeResIds.add(hotspotResIds);
@@ -98,12 +104,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         foodStoresResIds.put("鬆餅", R.array.store_pancake);
         foodStoresResIds.put("咖哩", R.array.store_curry);
         foodStoresResIds.put("拉麵", R.array.store_noodle);
+        foodStoresResIds.put("quil_fait_bon", R.array.stores_quil_fait_bon);
+        foodStoresResIds.put("其他", R.array.store_other_foods);
+        foodStoresResIds.put("吉祥寺", R.array.hotspot_kichijoji_food);
+
+
         storeResIds.add(foodStoresResIds);
 
 
         LinkedHashMap<String, Integer> clothesStoresResIds = new LinkedHashMap<>();
         clothesStoresResIds.put("MIIA", R.array.store_miia);
         clothesStoresResIds.put("Skechers", R.array.store_skechers);
+        clothesStoresResIds.put("31_sons_de_mode", R.array.store_31_sons_de_mode);
+        clothesStoresResIds.put("coco_deal", R.array.store_coco_deal);
         clothesStoresResIds.put("Others", R.array.store_shop_stores);
         storeResIds.add(clothesStoresResIds);
 
