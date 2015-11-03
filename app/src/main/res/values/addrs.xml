@@ -40,7 +40,6 @@
         <item>35.705432,139.749677@小石川後樂園@Null</item>
         <item>35.636894,139.719019@東京都庭園美術館@日本東京都港区白金台５丁目２１−９ 東京都庭園美術館</item>
         <item>35.712456,139.394420@昭和公園@日本、〒190-0014 東京都立川市泉町、緑町3173</item>
-        <!--<item>高尾山</item>-->
         <item>35.763780,139.628232@光が丘公園@4-1-1 Hikarigaoka, Nerima, Tokyo</item>
     </string-array>
 
@@ -63,7 +62,6 @@
 
     <string-array name="stores_quil_fait_bon">
         <item>35.6740416,139.7670171@quil_fait_bon@東京都中央区銀座2-5-4</item><item>35.6650161,139.713633@quil_fait_bon@東京都港区南青山3-18-5</item><item>35.7100327,139.8107155@quil_fait_bon@東京都墨田区押上1丁目1番2号</item><item>35.4643748,139.6204623@quil_fait_bon@神奈川県横浜市西区南幸1-5-1</item>
-
     </string-array>
 
     <string-array name="store_fruit_ice">
@@ -160,8 +158,8 @@
 
 
     <string-array name="store_shop_stores">
-        <!--<item>水曜日的愛麗絲 # 東京都渋谷区神宮前6-28-3</item>-->
-        <!--<item>Princess one spoon #東京都澀谷區神宮前4-27-4</item>-->
+        <item>35.667303,139.704230@水曜日的愛麗絲@東京都渋谷区神宮前6-28-3</item>
+        <item>35.669474,139.707544@Princess one spoon@東京都澀谷區神宮前4-27-4 地鐵搭到原宿，明治神宮前站走路5分鐘左右 </item>
         <item>35.6106685,139.6681554@自由之丘 LA VITA@東京都 目黑區自由が丘 2-8-3</item>
         <item>35.648885,139.699835@蔦屋書店@東京都渋谷区猿楽町17-5 </item>
         <item>35.648262,139.701584@Maison de Reefur!!@代官山プラザビル 1F、24-7</item>
