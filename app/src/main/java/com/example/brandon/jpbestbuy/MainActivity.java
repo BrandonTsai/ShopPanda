@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         DB.initDatabase(this);
 
 	    /* put test data */
-	    if (Mockup.noMockupInit(this)) {
-            Mockup.initMockupCase1(this);
-	    }
+//	    if (Mockup.noMockupInit(this)) {
+//            Mockup.initMockupCase1(this);
+//	    }
 
         initButton();
         showStoreFrameView();
@@ -307,34 +307,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void addProductDialog(){
-        addProductDlg = new Dialog(this);
-        addProductDlg.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        addProductDlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        addProductDlg.setContentView(R.layout.dialog_add_product);
-
-        Button btnCancel = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductCancel);
-        btnCancel.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                addProductDlg.cancel();
-            }
-        });
-
-        Button btnSave = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductSave);
-        btnSave.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                EditText newProduct = (EditText) addProductDlg.findViewById(R.id.et_addProductName);
-                String pName = newProduct.getText().toString();
-                EditText newAmount = (EditText) addProductDlg.findViewById(R.id.et_addProductAmount);
-                Integer pAmount = Integer.valueOf(newAmount.getText().toString());
-                DB.addProduct(pName, pAmount);
-                Log.d(TAG, "Add new product: " + pName);
-                updateShopList();
-                addProductDlg.cancel();
-            }
-        });
-        addProductDlg.show();
-    }
+//    public void addProductDialog(){
+//        addProductDlg = new Dialog(this);
+//        addProductDlg.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        addProductDlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        addProductDlg.setContentView(R.layout.dialog_add_product);
+//
+//        Button btnCancel = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductCancel);
+//        btnCancel.setOnClickListener(new Button.OnClickListener() {
+//            public void onClick(View v) {
+//                addProductDlg.cancel();
+//            }
+//        });
+//
+//        Button btnSave = (Button)addProductDlg.findViewById(R.id.dlgBtnAddProductSave);
+//        btnSave.setOnClickListener(new Button.OnClickListener() {
+//            public void onClick(View v) {
+//                EditText newProduct = (EditText) addProductDlg.findViewById(R.id.et_addProductName);
+//                String pName = newProduct.getText().toString();
+//                EditText newAmount = (EditText) addProductDlg.findViewById(R.id.et_addProductAmount);
+//                Integer pAmount = Integer.valueOf(newAmount.getText().toString());
+//                DB.addProduct(pName, pAmount);
+//                Log.d(TAG, "Add new product: " + pName);
+//                updateShopList();
+//                addProductDlg.cancel();
+//            }
+//        });
+//        addProductDlg.show();
+//    }
 
     private void updateShopList() {
         SwipeListView mSwipeListView = (SwipeListView) frameView.findViewById(R.id.swipe_listView_productlist);

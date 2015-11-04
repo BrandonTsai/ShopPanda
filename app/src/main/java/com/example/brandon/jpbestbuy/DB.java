@@ -171,6 +171,13 @@ public class DB{
         }
     }
 
+    public static void delProduct(int id) {
+        Log.d(TAG, "del product:" + id);
+        db.delete("products", "_id=" + id, null);
+        db.delete("prices", "PID=" + id, null);
+
+    }
+
     public static void setProductIsBought(int id) {
         ContentValues cv=new ContentValues(1);
 

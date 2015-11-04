@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class AddStoreProduct extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class AddStoreProduct extends AppCompatActivity {
 
     private int storeID;
     private Spinner spnProductList;
-    //ArrayList<HashMap<String, String>> productInfo;
+    ArrayList<HashMap<String, String>> productInfo;
 
     Dialog addProductDlg;
 
@@ -53,9 +54,9 @@ public class AddStoreProduct extends AppCompatActivity {
 
                 // get product id
                 Spinner spnProductList = (Spinner) findViewById(R.id.spn_product_list);
-                Integer pid = spnProductList.getSelectedItemPosition();
-                //Integer pid = Integer.valueOf(productInfo.get(pos).get("_id"));
-                //Log.d(TAG, "select:" + pid);
+                Integer pos = spnProductList.getSelectedItemPosition();
+                Integer pid = Integer.valueOf(productInfo.get(pos).get("_id"));
+                Log.d(TAG, "select:" + pid);
 
                 //get price
                 EditText editPrice = (EditText) findViewById(R.id.editProductPrice);
@@ -75,7 +76,8 @@ public class AddStoreProduct extends AppCompatActivity {
 
                 Intent it = AddStoreProduct.this.getIntent();
                 Bundle bundle = new Bundle();
-                bundle.putInt("pid", pid + 1);
+//                bundle.putInt("pid", pid + 1);
+                bundle.putInt("pid", pid);
                 bundle.putInt("price", price);
 
                 it.putExtras(bundle);
@@ -117,7 +119,7 @@ public class AddStoreProduct extends AppCompatActivity {
     private void updateSpinnerProductList(boolean selectNewItem){
         spnProductList = (Spinner) findViewById(R.id.spn_product_list);
         Cursor pCursor= DB.getAllProduct();
-        //productInfo = Utils.cur2ArrayList(pCursor);
+        productInfo = Utils.cur2ArrayList(pCursor);
         ArrayList<String> productList = getProductList(pCursor);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.spinner_adapter_product_list, R.id.text, productList);
         spnProductList.setAdapter(adapter);

@@ -1,7 +1,9 @@
 package com.example.brandon.jpbestbuy;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -94,6 +96,14 @@ public class ShopListAdapter extends CursorAdapter {
             tvAmountX.setTextColor(Color.BLACK);
         }
 
+        Button delBtn = (Button) view.findViewById(R.id.btn_shoplist_del);
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delProductDialog(id);
+            }
+        });
+
         Button boughtBtn = (Button) view.findViewById(R.id.btn_shoplist_bought);
         boughtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +125,24 @@ public class ShopListAdapter extends CursorAdapter {
         });
 
 
+    }
 
+    public void delProductDialog(final int pid){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Delete?")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.d(TAG, "Product is deleteed!" + pid);
+                        DB.delProduct(pid);
+                        updateShopList();
+                    }
+                })
+                .setNegativeButton("Cancel", null);
+        // Create the AlertDialog
+        builder.create().show();
 
     }
+
 
     public void editProductDialog(final int id, String name, int amount, boolean bought){
         final Dialog editProductDlg = new Dialog(mContext);
