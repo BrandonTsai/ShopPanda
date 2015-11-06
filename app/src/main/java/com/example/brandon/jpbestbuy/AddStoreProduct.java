@@ -69,7 +69,7 @@ public class AddStoreProduct extends AppCompatActivity {
 
                 if (tax == 0) {
                     double d = price * 1.08;
-                    Log.d(TAG, "New Price="+d);
+                    Log.d(TAG, "New Price=" + d);
                     Long L = Math.round(d);
                     price = Integer.valueOf(L.intValue());
                 }
@@ -115,6 +115,8 @@ public class AddStoreProduct extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void updateSpinnerProductList(boolean selectNewItem){
         spnProductList = (Spinner) findViewById(R.id.spn_product_list);

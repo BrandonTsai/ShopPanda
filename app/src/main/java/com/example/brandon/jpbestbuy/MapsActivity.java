@@ -92,9 +92,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        storeResIds.add(drugStoresResIds);
 
         LinkedHashMap<String, Integer> hotspotResIds = new LinkedHashMap<>();
-        hotspotResIds.put("其他", R.array.hotspots);
-        hotspotResIds.put("Bicycle", R.array.hotspots_bicycle);
+        hotspotResIds.put("Hotel", R.array.hotel);
         hotspotResIds.put("楓葉", R.array.hotspots_maple_leaf);
+        hotspotResIds.put("Bicycle", R.array.hotspots_bicycle);
+        hotspotResIds.put("其他", R.array.hotspots);
 
         storeResIds.add(hotspotResIds);
 

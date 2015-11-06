@@ -92,18 +92,10 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:id="@+id/imageView"
-            android:background="@android:color/white"
-            android:padding="15dp"
-            android:src="@drawable/no_image_available"/>
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:gravity="center_horizontal">
 
@@ -124,6 +116,14 @@
                 android:background="@android:drawable/ic_menu_camera"
                 android:backgroundTint="#e5aeae"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:id="@+id/imageView"
+            android:background="@android:color/white"
+            android:padding="15dp"
+            android:src="@drawable/no_image_available"/>
 
     </LinearLayout>
 
