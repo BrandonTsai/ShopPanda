@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/spn_product_list"
                     android:layout_weight="1"
-                    android:entries="@array/product_list"
+                    android:entries="@array/product_status"
                     android:focusableInTouchMode="true"
                     android:spinnerMode="dropdown"
                     android:background="#ffffffff" />

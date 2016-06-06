@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="500dp"
     android:layout_height="wrap_content"
     android:background="#ffd7ead4"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:id="@+id/laoAddStoreTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/addStoreTitle"
@@ -21,7 +23,8 @@
             android:layout_weight="5"
             android:text="Add Store"
             android:textSize="20sp"
-            android:paddingLeft="1dp" />
+            android:paddingLeft="1dp"
+            android:textStyle="normal|bold"/>
 
     </LinearLayout>
 
@@ -42,14 +45,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Name: "
-                android:id="@+id/textStoreName" />
+                android:id="@+id/textStoreName"
+                android:textSize="18dp"
+                android:textIsSelectable="false"/>
 
             <EditText
                 android:layout_width="207dp"
@@ -58,7 +63,8 @@
                 android:text="Sun Drog"
                 android:background="#ffffffff"
                 android:layout_gravity="top"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:padding="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,14 +72,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="1"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Threshold: at least  "
-                android:id="@+id/textView2" />
+                android:text="Threshold: At least  "
+                android:id="@+id/textView2"
+                android:textSize="18dp"/>
 
             <EditText
                 android:layout_width="90dp"
@@ -83,7 +90,8 @@
                 android:id="@+id/editThreshold"
                 android:layout_weight="0.92"
                 android:text="5000"
-                android:background="#ffffffff" />
+                android:background="#ffffffff"
+                android:padding="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +105,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -105,7 +113,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Discount: "
-                android:id="@+id/textView" />
+                android:id="@+id/textView"
+                android:textSize="18dp"/>
 
             <EditText
                 android:layout_width="90dp"
@@ -114,7 +123,8 @@
                 android:ems="10"
                 android:id="@+id/editDiscount"
                 android:text="8"
-                android:background="#ffffffff" />
+                android:background="#ffffffff"
+                android:padding="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,21 +138,23 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location: "
-                android:id="@+id/textView5"/>
+                android:id="@+id/textView5"
+                android:textSize="18dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Null"
                 android:id="@+id/tv_add_store_GPS"
-                android:textColor="@android:color/holo_blue_dark"/>
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -152,7 +164,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/btnAddStoreCancel"

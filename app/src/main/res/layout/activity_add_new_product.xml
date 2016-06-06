@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.brandon.jpbestbuy.AddNewProductActivity"
+    android:orientation="vertical"
+    android:focusable="true" android:focusableInTouchMode="true">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:background="#C7DFBA"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="2">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Add New Product"
+            android:id="@+id/textView8"
+            android:textStyle="bold"
+            android:textSize="26dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:id="@+id/textView9"
+                android:textSize="20dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_product_name"
+                android:layout_weight="1"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount:"
+                android:id="@+id/textView10"
+                android:textSize="20dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText_product_amount"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center_horizontal">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_new_product_gallery"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#62a4dd"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_new_product_camera"
+                android:background="@android:drawable/ic_menu_camera"
+                android:backgroundTint="#e5aeae"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:id="@+id/imageView"
+            android:background="@android:color/white"
+            android:padding="15dp"
+            android:src="@drawable/no_image_available"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="1">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Cancel"
+            android:id="@+id/button_new_product_cancel"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:background="#C7DFBA"
+            android:textSize="20dp"
+            android:textColor="#645e5e"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Save"
+            android:id="@+id/button_new_product_save"
+            android:layout_weight="1"
+            android:background="#C7DFBA"
+            android:textSize="20dp"
+            android:textColor="#645e5e"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,28 +6,53 @@
     android:layout_height="match_parent"
     tools:context="com.example.brandon.jpbestbuy.BestShopResult"
     android:orientation="vertical">
-
-
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/shopresult_tv_best_cost"
-        android:text="test"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textStyle="bold"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textSize="28dp"/>
+        android:layout_height="80dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
 
-    <ExpandableListView
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:id="@+id/bt_return"
+            android:onClick="returnToPreActivity"
+            android:background="@drawable/returnb"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/shopresult_tv_best_cost"
+            android:text="test"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="28dp"
+            android:layout_marginLeft="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/shopresult_expListView"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="#efeded">
 
-        />
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopresult_expListView"
+            android:layout_gravity="center_horizontal"
+
+            />
+    </LinearLayout>
 
 </LinearLayout>

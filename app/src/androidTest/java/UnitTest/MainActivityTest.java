@@ -1,12 +1,9 @@
 package UnitTest;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.ActivityUnitTestCase;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.brandon.jpbestbuy.MainActivity;
 import com.example.brandon.jpbestbuy.R;
@@ -45,10 +42,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		Button et = (Button) mMainActivity.findViewById(R.id.ComputeBestResult);
 		//et.setText("yes");
 		assertEquals("Compute", et.getText().toString());
-		boolean reality = mMainActivity.noMockupInit();
-		final boolean expected = false;
-		assertEquals(expected, reality);
-
 	}
 
 	public void testnoComputeResultButton() throws Exception {

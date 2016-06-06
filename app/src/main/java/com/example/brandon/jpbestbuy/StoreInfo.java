@@ -5,8 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.location.Address;
-import android.location.Geocoder;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -67,13 +65,22 @@ public class StoreInfo extends AppCompatActivity {
             String location = jsonStore.getString("LOCATION");
 
             if (!location.equals("Null")) {
-                String[] lc = location.split(",");
-                Double latitude = Double.valueOf(lc[0]);
-                Double longitude = Double.valueOf(lc[1]);
-                locationTextView.setText(getAddressFromLocation(latitude,longitude));
+
+                String[] lc = location.split(";");
+                String[] gps = lc[0].split(",");
+                Double latitude = Double.valueOf(gps[0]);
+                Double longitude = Double.valueOf(gps[1]);
+
+                //locationTextView.setText(getAddressFromLocation(latitude,longitude));
+                if (lc[1] != null){
+                    locationTextView.setText(lc[1]);
+                } else {
+                    locationTextView.setText(location);
+                }
                 locationTextView.setOnClickListener(new LocationOnClickListener());
             } else {
                 locationTextView.setText("Cat not get location!");
+                locationTextView.setTextColor(Color.LTGRAY);
             }
 
 
@@ -86,26 +93,6 @@ public class StoreInfo extends AppCompatActivity {
         }
     }
 
-    private String getAddressFromLocation(double latitude, double longitude){
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-//            String city = addresses.get(0).getLocality();
-//            String state = addresses.get(0).getAdminArea();
-//            String country = addresses.get(0).getCountryName();
-//            String postalCode = addresses.get(0).getPostalCode();
-//            String knownName = addresses.get(0).getFeatureName();
-            Log.d(TAG, addresses.get(0).getAddressLine(0).toString());
-            return addresses.get(0).getAddressLine(0).toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     protected class LocationOnClickListener implements View.OnClickListener {
 
@@ -113,10 +100,17 @@ public class StoreInfo extends AppCompatActivity {
         public void onClick(View v) {
             try {
                 String location = jsonStore.getString("LOCATION");
-                String[] lc = location.split(",");
-                Double latitude = Double.valueOf(lc[0]);
-                Double longitude = Double.valueOf(lc[1]);
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%s", latitude, longitude, getAddressFromLocation(latitude,longitude));
+                String[] lc = location.split(";");
+                String[] gps = lc[0].split(",");
+                Double latitude = Double.valueOf(gps[0]);
+                Double longitude = Double.valueOf(gps[1]);
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=", latitude, longitude);
+                if (lc[1] != null) {
+                    uri = uri + lc[1];
+                }
+                else {
+                    uri = uri + Utils.getAddressFromLocation(StoreInfo.this, latitude, longitude);
+                }
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 context.startActivity(intent);
             } catch (JSONException e) {
@@ -308,6 +302,12 @@ public class StoreInfo extends AppCompatActivity {
         }
     }
 
+
+    public void goBack(View v){
+        finish();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -322,15 +322,28 @@ public class StoreInfo extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+        // Go to different intent if item selected
+        Intent it = null;
+        switch (id){
+            case R.id.menu_main:
+                Log.d(TAG, "select menu item: main");
+                it = new Intent(this, MainActivity.class);
+                startActivity(it);
+                break;
+            case R.id.menu_map:
+                Log.d(TAG, "select menu item: Maps");
+                it = new Intent(this, MapsActivity.class);
+                startActivity(it);
+                break;
+
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void goBack(View v){
-        finish();
     }
 }

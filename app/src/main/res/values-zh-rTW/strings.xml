@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">露買露俗</string>
+    <string name="add_store">新增商店</string>
+    <string name="DB">BestBuy</string>
+    <string name="action_settings">設定</string>
+    <string name="title_activity_edit_store">店舖資訊</string>
+    <string name="title_activity_add_product">新增商品</string>
+    <string name="title_activity_edit_store_product">修改店舖商品價錢</string>
+    <string-array name="tax_list">
+        <item>不含稅</item>
+        <item>含稅</item>
+    </string-array>
+
+    <!--<string-array name="product_list">-->
+        <!--<item>New Product</item>-->
+        <!--<item>Test</item>-->
+    <!--</string-array>-->
+
+    <string-array name="product_status">
+        <item>未購買</item>
+        <item>已購買</item>
+    </string-array>
+
+    <string name="title_activity_compute_best_buy2">計算結果</string>
+
+    <string-array name="listview1_spinner1">
+        <item>Food</item>
+        <item>Clothes</item>
+        <item>Drug</item>
+        <item>Electronics</item>
+        <item>Gift</item>
+    </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_test_maps">Map</string>
+
+
+</resources>

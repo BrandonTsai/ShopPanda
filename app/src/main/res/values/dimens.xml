@@ -8,4 +8,8 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
+
+    <item name="activity_add_product" format="integer" type="integer">1</item>
+    <item name="activity_call_garelly" format="integer" type="integer">2</item>
+    <item name="activity_call_camera" format="integer" type="integer">3</item>
 </resources>

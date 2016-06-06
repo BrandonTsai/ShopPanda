@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,24 +18,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class AddStoreProduct extends ActionBarActivity {
+public class AddStoreProduct extends AppCompatActivity {
 
-    private final static String TAG = Utils.TAG + "(AddStoreProduct)";
+    private final static String TAG = "AddStoreProduct";
 
     private int storeID;
     private Spinner spnProductList;
-	//ArrayList<String> productList;
+    ArrayList<HashMap<String, String>> productInfo;
 
     Dialog addProductDlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Intent it = getIntent();
-        //storeID = it.getIntExtra("SID", 0);
-        //Log.d(sCursor, "Add product to stroe:" + storeID);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_store_product);
@@ -57,7 +54,8 @@ public class AddStoreProduct extends ActionBarActivity {
 
                 // get product id
                 Spinner spnProductList = (Spinner) findViewById(R.id.spn_product_list);
-                Integer pid = spnProductList.getSelectedItemPosition();
+                Integer pos = spnProductList.getSelectedItemPosition();
+                Integer pid = Integer.valueOf(productInfo.get(pos).get("_id"));
                 Log.d(TAG, "select:" + pid);
 
                 //get price
@@ -71,14 +69,15 @@ public class AddStoreProduct extends ActionBarActivity {
 
                 if (tax == 0) {
                     double d = price * 1.08;
-                    Log.d(TAG, "New Price="+d);
+                    Log.d(TAG, "New Price=" + d);
                     Long L = Math.round(d);
                     price = Integer.valueOf(L.intValue());
                 }
 
                 Intent it = AddStoreProduct.this.getIntent();
                 Bundle bundle = new Bundle();
-                bundle.putInt("pid", pid + 1);
+//                bundle.putInt("pid", pid + 1);
+                bundle.putInt("pid", pid);
                 bundle.putInt("price", price);
 
                 it.putExtras(bundle);
@@ -101,6 +100,7 @@ public class AddStoreProduct extends ActionBarActivity {
         spnProductList.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapterView, View view, int position, long id) {
                 Cursor pCursor = DB.getAllProduct();
+                //productInfo = Utils.cur2ArrayList(pCursor);
                 ArrayList<String> productList = getProductList(pCursor);
                 //Log.d(sCursor, "(Spinner) selected: " + position + "/" + productList.size());
                 Integer pListSize = new Integer(productList.size());
@@ -116,9 +116,12 @@ public class AddStoreProduct extends ActionBarActivity {
         });
     }
 
+
+
     private void updateSpinnerProductList(boolean selectNewItem){
         spnProductList = (Spinner) findViewById(R.id.spn_product_list);
         Cursor pCursor= DB.getAllProduct();
+        productInfo = Utils.cur2ArrayList(pCursor);
         ArrayList<String> productList = getProductList(pCursor);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.spinner_adapter_product_list, R.id.text, productList);
         spnProductList.setAdapter(adapter);
@@ -173,10 +176,12 @@ public class AddStoreProduct extends ActionBarActivity {
         });
         addProductDlg.show();
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_store_product, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -186,6 +191,24 @@ public class AddStoreProduct extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+
+        // Go to different intent if item selected
+        Intent it = null;
+        switch (id){
+            case R.id.menu_main:
+                Log.d(TAG, "select menu item: main");
+                it = new Intent(this, MainActivity.class);
+                startActivity(it);
+                break;
+            case R.id.menu_map:
+                Log.d(TAG, "select menu item: Maps");
+                it = new Intent(this, MapsActivity.class);
+                startActivity(it);
+                break;
+
+
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
